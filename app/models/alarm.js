@@ -1,6 +1,7 @@
-h/**
+/**
  * Module dependencies.
  */
+
 var mongoose = require('mongoose'),
     config = require('../../config/config'),
     Schema = mongoose.Schema;
@@ -18,9 +19,18 @@ var AlarmSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    title:{
+        type: String,
+        trim:true
+    },
+    oneTime:{
+        type:Boolean,
+        default:true
+    },
     wakeTime: {
-        type: Date,
-        default: function(){return Date.now()+600;}
+        type: String,
+        default:Date.now
+
 
     },
     dayOfWeek: {
@@ -43,16 +53,16 @@ AlarmSchema.path('title').validate(function(title) {
 
 AlarmSchema.pre('save', function(next) {
     this.modified=Date.now();
-    next()
+    next();
 });
 
 /**
  * Statics
  */
-ArticleSchema.statics.load = function(id, cb) {
+AlarmSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
     }).populate('user', 'name username').exec(cb);
 };
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('Alarm', AlarmSchema);
