@@ -1,0 +1,16 @@
+<section data-ng-controller="AlarmsController" data-ng-init="find()">
+	<ul class="alarms unstyled">
+		<li data-ng-repeat="alarm in alarms">
+			<span>{{alarm.created | date:'medium'}}</span> /
+			<span>{{alarm.user.name}}</span>
+			<h2><a data-ng-href="#!/alarms/{{alarm._id}}/edit">{{alarm.title}}</a></h2>
+            <form class="form-horizontal" data-ng-submit="update(alarm)">
+                <input type="time" data-ng-model="alarm.wakeTime" id="wakeTime" placeholder="00:00" required>
+                <input type="submit"/>
+            </form>
+			<div data-ng-show="!alarm.oneTime"><span data-ng-repeat="day in alarm.dayOfWeek">{{days[day].name}}</span> </div>
+            <div data-ng-show="alarm.oneTime">only Once</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!alarms || alarms.length">No alarms yet. <br> Why don't you <a href="/#!/alarms/create">Create One</a>?</h1>
+</section>

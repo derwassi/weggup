@@ -2,11 +2,11 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     $scope.global = Global;
 
     $scope.menu = [{
-        "title": "Articles",
-        "link": "articles"
+        "title": "Alarms",
+        "link": "alarms"
     }, {
-        "title": "Create New Article",
-        "link": "articles/create"
+        "title": "Create new Alarm",
+        "link": "alarms/create"
     }];
     
     $scope.isCollapsed = false;

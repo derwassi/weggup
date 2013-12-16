@@ -1,0 +1,44 @@
+<section data-ng-controller="AlarmsController">
+	<form class="form-horizontal" data-ng-submit="create()">
+		<div class="control-group">
+			<label class="control-label" for="title">Title</label>
+			<div class="controls">
+				<input type="text" data-ng-model="title" id="title" placeholder="Title" required>
+			</div>
+		</div>
+        <div class="control-group">
+            <label class="control-label" for="wakeTime">Content</label>
+            <div class="controls">
+                <input type="text" data-ng-model="wakeTime" id="wakeTime" placeholder="00:00" required>
+            </div>
+        </div>
+        <div class="control-group">
+
+            <div class="controls">
+                <label ng-repeat="day in days">
+                    <!--
+                      - use `value="{{fruit.name}}"` to give the input a real value, in case the form gets submitted
+                        traditionally
+
+                      - use `ng-checked="fruit.selected"` to have the checkbox checked based on some angular expression
+                        (no two-way-data-binding)
+
+                      - use `ng-model="fruit.selected"` to utilize two-way-data-binding. Note that `.selected`
+                        is arbitrary. The property name could be anything and will be created on the object if not present.
+                    -->
+                    <input
+                            type="checkbox"
+                            name="daysOfWeek[]"
+                            value="{{day.name}}"
+                            ng-model="day.selected"
+                            > {{day.name}}
+                </label>
+            </div>
+        </div>
+		<div class="control-group">
+			<div class="controls">
+				<input type="submit" class="btn">
+			</div>
+		</div>
+	</form>
+</section>
