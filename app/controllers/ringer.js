@@ -24,13 +24,13 @@ var ring = function(alarm){
     setTimeout(function(){
         sound.play();
     },3000);
-    for (var i=0;i<=10;i++){
+   /* for (var i=0;i<=10;i++){
         (function(i){
             setTimeout(function(){
                 sound.volume(i*10);
             },3000+i*500);
         })(i);
-    }
+    }*/
 
 };
 
