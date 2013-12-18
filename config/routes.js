@@ -67,8 +67,8 @@ module.exports = function(app, passport, auth) {
     app.get('/alarms', alarms.all);
     app.post('/alarms', auth.requiresLogin, alarms.create);
     app.get('/alarms/:alarmId', alarms.show);
-    app.put('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization, alarms.update, ringer.update);
-    app.del('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization, alarms.destroy, ringer.update);
+    app.put('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization,ringer.update, alarms.update );
+    app.del('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization,  ringer.update, alarms.destroy);
 
     app.get('/ring',ringer.ring);
     //Finish with setting up the articleId param

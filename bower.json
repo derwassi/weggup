@@ -10,6 +10,7 @@
     "bootstrap": "2.3.2",
     "angular-bootstrap": "0.7.0",
     "angular-ui-utils": "0.0.4",
-    "jquery-gradient-picker":"https://github.com/tantaman/jquery-gradient-picker.git"
+    "jquery-gradient-picker":"https://github.com/tantaman/jquery-gradient-picker.git",
+    "jquery-ui":"latest"
   }
 }

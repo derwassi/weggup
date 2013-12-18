@@ -7,8 +7,12 @@
  * Module dependencies.
  */
 var _ = require('underscore');
+var mongoose = require('mongoose');
+Alarm = mongoose.model('Alarm');
+var cronJob = require('cron').CronJob;
 
 var player = require('./mplayer');
+
 
 /**
  * update cronjobs

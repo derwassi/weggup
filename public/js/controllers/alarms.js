@@ -73,6 +73,16 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
         });
     };
 
+
+    var prevColors = [-1,-1,-1];
+    $scope.setColorPreview = function(col){
+        if(prevColors[0]!=col[0] || prevColors[1]!=col[1] || prevColors[2]!=col[2]){
+            console.log(col);
+            prevColors = col;
+        }
+
+    }
+
     $scope.find = function() {
         Alarms.query(function(alarms) {
             $scope.alarms = alarms;

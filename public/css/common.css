@@ -23,3 +23,36 @@ footer {
 footer p {
     padding:5px 0 12px 10px
 }
+
+.gradientPicker-preview{
+    width:100%;
+    height:50px;
+}
+.gradientPicker-ctrlPts{
+    height:50px;
+}
+.gradientPicker-ctrlPt {
+
+    width:42px;
+    height:42px;
+}
+.gradientPicker-ptConfig{
+    width:95px;
+    height:60px;
+}
+.color-chooser{
+    width:50px;
+    height:50px;
+    background-size: 60px;
+}
+.gradientPicker-close{
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+    top: 15px;
+    right: 7px;
+}
+
+.gradientplayer{
+    margin-bottom:10px;
+}

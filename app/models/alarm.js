@@ -38,6 +38,10 @@ var AlarmSchema = new Schema({
         default: []
 
     },
+    gradient:{
+        type:Array,
+        default: [{color:'#000',position:0},{color:'#fff',position:1}]
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

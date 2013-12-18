@@ -1,6 +1,6 @@
 TODOs: (nach prio)
 
-Frontend: pflege Verläufe ( + live vorschau)
+-Frontend: pflege Verläufe ( + live vorschau)-
 Backend: implementierung tweener
 Backend: implementierung PWM (+Hardware)
 Backend: soundprovider
