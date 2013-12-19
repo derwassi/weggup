@@ -1,5 +1,17 @@
-angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','filterFilter', function ($scope, $routeParams, $location, Global, Alarms, filterFilter) {
+angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','Hardware','filterFilter', function ($scope, $routeParams, $location, Global, Alarms,Hardware, filterFilter) {
+    //TODO: angular service
+    var socket = io.connect(window.location.protocol + '//' + window.location.hostname + ":3010");
+
+
     $scope.global = Global;
+    $scope.hardware = null;
+    Hardware.query(function(hardware){
+        if(hardware.length>0){
+            $scope.hardware = hardware[0];
+            console.log($scope.hardware);
+        }
+    });
+
 
     $scope.days = [
         { name: 'Monday', value:0,   selected: false },
@@ -76,14 +88,20 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
 
     var prevColors = [-1,-1,-1];
     $scope.setColorPreview = function(col){
+        //TODO: über sockets, sonst zu langsam!
         if(prevColors[0]!=col[0] || prevColors[1]!=col[1] || prevColors[2]!=col[2]){
-            console.log(col);
+            socket.emit('set',{name:'red',value:col[0]});
+            socket.emit('set',{name:'green',value:col[2]});
+            socket.emit('set',{name:'blue',value:col[2]});
+
+
             prevColors = col;
         }
 
-    }
+    };
 
     $scope.find = function() {
+        console.log('find');
         Alarms.query(function(alarms) {
             $scope.alarms = alarms;
         });

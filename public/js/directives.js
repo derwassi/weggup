@@ -17,7 +17,7 @@ angular.module('mean.directives', [])
             }
             $(element).gradientPicker({
                 change: function(points, styles) {
-                    model.gradient = []
+                    model.gradient = [];
                     for(var i=0;i<points.length;i++){
                         model.gradient.push(points[i]);
                     }
@@ -35,7 +35,7 @@ angular.module('mean.directives', [])
                 var width=$('canvas', element).width();
                 var data = context.getImageData(parseInt(width*value),1, 1, 1).data;
                 scope.setColorPreview([data[0],data[1],data[2]]);
-            }
+            };
 
 
 
@@ -60,11 +60,11 @@ angular.module('mean.directives', [])
                 });
                 $('.play',playerControls).addClass('playing');
 
-            }
+            };
             var endTween = function(){
                 playerState.stop();
                 $('.play',playerControls).removeClass('playing');
-            }
+            };
             var playerState = $({
                 position:0
             });
@@ -81,12 +81,12 @@ angular.module('mean.directives', [])
                     console.log(playerState.position);
                     startTween();
 
-                };
+                }
                 return false;
             });
             player = $('<div class="gradientplayer"/>');
 
-            player.slider({min:0,max:1,step:0.00001,change:function(){updateColor(player.slider('value'))}});
+            player.slider({min:0,max:1,step:0.00001,change:function(){updateColor(player.slider('value'));}});
             $(element).prepend(player);
             $(element).prepend(playerControls);
 

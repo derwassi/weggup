@@ -69,10 +69,16 @@ module.exports = function(app, passport, auth) {
     app.get('/alarms/:alarmId', alarms.show);
     app.put('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization,ringer.update, alarms.update );
     app.del('/alarms/:alarmId', auth.requiresLogin, auth.alarm.hasAuthorization,  ringer.update, alarms.destroy);
+    app.param('alarmId', alarms.alarm);
+
+    var hardware = require('../app/controllers/hardware');
+    app.get('/hardware',hardware.all);
+    app.put('/hardware/:hardwareId',hardware.update);
+    app.param('hardwareId',hardware.hardware);
 
     app.get('/ring',ringer.ring);
     //Finish with setting up the articleId param
-    app.param('alarmId', alarms.alarm);
+
 
     //Home route
     var index = require('../app/controllers/index');

@@ -40,7 +40,9 @@
         "grunt-cli": "latest",
         "grunt-env": "latest",
         "cron": "latest",
-        "simple-mplayer": "latest"
+        "simple-mplayer": "latest",
+        "pi-blaster.js":"latest",
+        "socket.io":"latest"
 
     },
     "devDependencies": {
