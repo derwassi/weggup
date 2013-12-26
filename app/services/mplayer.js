@@ -11,12 +11,14 @@ var _ = require('underscore');
 var spawn = require('child_process').spawn;
 
 
-exports.play = function (soundFile) {
-    var sound = spawn('mplayer', [soundFile, '-loop', '0', '-slave']);
-    sound.stdin.write('pause');
+exports.play = function (soundFile, loop, volume) {
+    console.log(soundFile,loop,volume);
+    var sound;
     var player = {};
     player.sendCommand = function (cmd) {
+       try{
         sound.stdin.write(cmd + "\n");
+       }catch(e){}
     };
     player.setInfinite = function () {
         player.sendCommand('loop 0');
@@ -29,8 +31,28 @@ exports.play = function (soundFile) {
         player.sendCommand('pause');
     };
     player.volume = function (vol) {
+
         player.sendCommand('volume ' + vol + ' 1');
     };
+    player.stop = function(){
+        sound.kill('SIGTERM');
+    }
+    var arguments = ['-slave'];
+    if(loop){
+        arguments.push('-loop');
+        arguments.push('0');
+    }
+    if(volume){
+        arguments.push('-volume');
+        arguments.push(volume+"");
+    }
+    arguments.push(soundFile);
+
+
+    sound = spawn('mplayer', arguments);
+    player.pause();
+
+
 
 
     return player;

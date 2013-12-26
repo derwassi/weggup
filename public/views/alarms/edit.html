@@ -13,11 +13,23 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="snoozeTime">snoozeTime</label>
+            <div class="controls">
+                <input type="time" data-ng-model="alarm.snoozeTime" id="snoozeTime" placeholder="00:00" required>
+            </div>
+        </div>
+
+
+        <div class="control-group">
             <label class="control-label" for="oneTime">Single alarm</label>
             <div class="controls">
                 <input type="checkbox" data-ng-model="alarm.oneTime" id="oneTime">
+
             </div>
         </div>
+
+
+
         <div class="control-group" data-ng-show="!alarm.oneTime">
             <div class="controls">
                 <label ng-repeat="day in days">
@@ -40,7 +52,33 @@
                 </label>
             </div>
         </div>
-        <div class="gradientpicker" gradient-picker/>
+
+        <div class="control-group">
+            <label class="control-label" for="useLight">useLight</label>
+            <div class="controls">
+                <input type="checkbox" data-ng-model="alarm.useLight" id="useLight">
+
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="useAmbientSound">Use Ambient Sound</label>
+            <div class="controls">
+                <input type="checkbox" data-ng-model="alarm.useAmbientSound" id="useAmbientSound">
+
+            </div>
+        </div>
+
+        <div class="control-group" data-ng-show="alarm.useLight || alam.useAmbientSound">
+            <label class="control-label" for="duration">Light/Sound duration</label>
+            <div class="controls">
+                <input type="time" data-ng-model="alarm.duration" id="duration" placeholder="00:30" >
+            </div>
+        </div>
+
+        <div class="gradientpicker" data-ng-show="alarm.useLight" gradient-picker/>
+
+        <div class="soundpicker" data-ng-show="alarm.useAmbientSound" sound-picker/>
+
 		<div class="control-group">
 			<div class="controls">
 				<input type="submit" class="btn">

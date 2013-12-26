@@ -1,7 +1,10 @@
-angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','Hardware','filterFilter', function ($scope, $routeParams, $location, Global, Alarms,Hardware, filterFilter) {
+angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','Hardware','filterFilter', 'Files', function ($scope, $routeParams, $location, Global, Alarms,Hardware, filterFilter,Files) {
     //TODO: angular service
     var socket = io.connect(window.location.protocol + '//' + window.location.hostname + ":3010");
 
+    $scope.files = [];
+
+    Files.query(function(f){ $scope.files = f;console.log(f);});
 
     $scope.global = Global;
     $scope.hardware = null;
@@ -100,6 +103,15 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
 
     };
 
+    $scope.playAudio = function(audio){
+        socket.emit('play',audio);
+    };
+    $scope.stopAudio = function(audio){
+        socket.emit('stop',audio);
+    }
+    //TODO: load from server
+    $scope.ambientSounds = ['a.mp3','b.mp3'];
+
     $scope.find = function() {
         console.log('find');
         Alarms.query(function(alarms) {
@@ -119,4 +131,7 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
             });
         });
     };
+    $scope.loadSoundlist = function(){
+
+    }
 }]);

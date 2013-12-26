@@ -33,19 +33,38 @@ var AlarmSchema = new Schema({
 
 
     },
+    snoozeTime: {
+        type: String,
+        default:'00:05'
+
+
+    },
     dayOfWeek: {
         type: Array,
         default: []
 
     },
+    useLight:{
+      type:Boolean,
+        default:true
+    },
     gradient:{
         type:Array,
         default: [{color:'#000',position:0},{color:'#fff',position:1}]
+    },
+    useAmbientSound:{
+      type:Boolean,
+        default:true
+    },
+    ambientSounds:{
+        type:Array,
+        default: []
     },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
     }
+
 });
 
 /**

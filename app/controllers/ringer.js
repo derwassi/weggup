@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 var cronJob = require('cron').CronJob;
 
-var player = require('./mplayer');
+//var player = require('./mplayer');
 
 
 /**

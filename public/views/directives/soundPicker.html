@@ -1,0 +1,18 @@
+<div class="button btn" data-ng-click="addItem()">Add</div>
+<div class="list" >
+    <div ng-repeat="item in alarm.ambientSounds" class="item">
+        <select required class="file" data-ng-model="item.file" ng-options="sound.file as sound.file for sound in files" >
+
+        </select>
+        <input type="text" required class="from" data-ng-model="item.from"/>
+        <input type="text" class="to" data-ng-model="item.to"/>
+        <input type="checkbox" class="repeat" data-ng-model="item.repeat"/>
+        <input type="number"  required min="0" max="100" value="80" class="volume" data-ng-model="item.volume"/>
+        <input type="button" class="button btn" value="play" data-ng-click="playAudio(item)"/>
+        <input type="button" class="button btn" value="stop" data-ng-click="stopAudio(item)"/>
+        <a class="button btn" data-ng-click="removeItem(item)">remove</a>
+    </div>
+</div>
+<div class="visualisation" data-ng-repeat="item in alarm.ambientSounds">
+    <div class="item {{getClass($index)}}" style="left:{{getPercent(item.from)}}%;width:{{getPercent(item.to-item.from)}}%;top={{$index*10}}px"/>
+</div>

@@ -76,6 +76,11 @@ module.exports = function(app, passport, auth) {
     app.put('/hardware/:hardwareId',hardware.update);
     app.param('hardwareId',hardware.hardware);
 
+    var files = require('../app/controllers/files');
+    app.get('/files',files.all);
+
+
+
     app.get('/ring',ringer.ring);
     //Finish with setting up the articleId param
 

@@ -68,6 +68,11 @@ angular.module('mean.directives', [])
             var playerState = $({
                 position:0
             });
+
+            player = $('<div class="gradientplayer"/>');
+            player.slider({min:0,max:1,step:0.00001,change:function(){updateColor(player.slider('value'));}});
+
+
             playerControls = $('<div class="gradientplayercontrols"><a href="#" class="play">play</a><select class="speed"><option value="1">original</option><option value="2">x2</option><option value="4">x4</option><option value="8">x8</option><option value="16">x16</option></select></div>');
             $('.play',playerControls).click(function(){
                 if($(this).hasClass('playing')){
@@ -84,9 +89,7 @@ angular.module('mean.directives', [])
                 }
                 return false;
             });
-            player = $('<div class="gradientplayer"/>');
 
-            player.slider({min:0,max:1,step:0.00001,change:function(){updateColor(player.slider('value'));}});
             $(element).prepend(player);
             $(element).prepend(playerControls);
 
@@ -106,5 +109,67 @@ angular.module('mean.directives', [])
                 //TODO less strict coupling via arguments!
 
             }
+        };
+    })
+    //TODO: decouple from actual controller/model
+    .directive('soundPicker',function(){
+        var scope = null;
+        var player ,playerControls= null;
+        var context = null;
+
+        var createSoundPicker = function(element, alarm){
+            scope.getClass = function(){
+
+            };
+            scope.toTimestamp= function(timeString){
+                return 100;
+            };
+            scope.addItem = function(){
+                console.log('test');
+                if(typeof alarm.ambientSounds == 'undefined'){
+                    alarm.ambientSounds = [];
+                }
+                alarm.ambientSounds.push({});
+                console.log(alarm.ambientSounds);
+            };
+            scope.removeItem = function(item){
+                angular.forEach(alarm.ambientSounds,function(v,k){
+                    if(v==item){
+                        alarm.ambientSounds.splice(k,1);
+                    }
+                });
+            };
+            scope.play = function(sound){
+                console.log('play', sound);
+            };
+
+            scope.stop = function(sound){
+                console.log('stop', sound);
+            };
+
+
+
+        };
+
+
+        return{
+            //TODO: fetch services from attributes
+            link: function ($scope, element) {
+                var initialised = false;
+                scope = $scope;
+                $scope.$watch('alarm',function(){
+                    if(!initialised && typeof $scope.alarm !== 'undefined'){
+                        createSoundPicker(element, $scope.alarm);
+                        initialised=true;
+                    }
+                });
+                //TODO less strict coupling via arguments!
+
+
+            }
+            ,templateUrl: 'views/directives/soundPicker.html'
+
+
+
         };
     });
