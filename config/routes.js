@@ -64,6 +64,7 @@ module.exports = function(app, passport, auth) {
     //Article Routes
     var alarms = require('../app/controllers/alarms');
     var ringer = require('../app/controllers/ringer');
+
     app.get('/alarms', alarms.all);
     app.post('/alarms', auth.requiresLogin, alarms.create);
     app.get('/alarms/:alarmId', alarms.show);

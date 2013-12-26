@@ -1,4 +1,5 @@
 <div class="button btn" data-ng-click="addItem()">Add</div>
+<div class="button btn" data-ng-click="playAudioPreview(alarm.ambientSounds)">Play</div>
 <div class="list" >
     <div ng-repeat="item in alarm.ambientSounds" class="item">
         <select required class="file" data-ng-model="item.file" ng-options="sound.file as sound.file for sound in files" >

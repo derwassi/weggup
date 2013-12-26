@@ -27,7 +27,7 @@ exports.setActuator = function(value, pin, mode, map){
             //console.log('set actuator ' + pin + ' to ' + map(value));
             piblaster.setPwm(pin,map(value));
         }catch(exception){
-            console.log(exception);
+            console.log('error reading pin ' + pin + ' (' + mode + ')');
             return false;
         }
     }

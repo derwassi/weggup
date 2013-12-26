@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Hardware = mongoose.model('Hardware');
 var hardwareAccess = require('./hardwareAccess');
 var mplayer = require('./mplayer');
+var soundMixer = require('./soundMixer');
 var hardware;
 
 var map = function(val, fl,fu,tl,tu){
@@ -54,5 +55,11 @@ io.sockets.on('connection',function(socket){
         if(music[audio.file]){
             music[audio.file].stop();
         }
+    });
+    socket.on('playPreview', function(list){
+       soundMixer.play(list);
+    });
+    socket.on('stop', function(){
+        soundMixer.stop();
     });
 });

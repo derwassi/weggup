@@ -108,9 +108,17 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     };
     $scope.stopAudio = function(audio){
         socket.emit('stop',audio);
-    }
-    //TODO: load from server
-    $scope.ambientSounds = ['a.mp3','b.mp3'];
+    };
+
+    $scope.playAudioPreview = function(files){
+        socket.emit('playPreview',files);
+    };
+    $scope.stopAudioPreview = function(files){
+        socket.emit('stopPreview',files);
+    };
+
+
+
 
     $scope.find = function() {
         console.log('find');

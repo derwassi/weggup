@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 var cronJob = require('cron').CronJob;
 
+
+var ringers = [];
 //var player = require('./mplayer');
 
 
@@ -45,7 +47,7 @@ exports.ring = function(req,res,next){
 };
 
 exports.update = function (req, res, next) {
-    var ringers = [];
+
 
 
     Alarm.find().exec(function (err, alarms) {
