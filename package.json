@@ -42,7 +42,9 @@
         "cron": "latest",
         "simple-mplayer": "latest",
         "pi-blaster.js":"latest",
-        "socket.io":"latest"
+        "socket.io":"latest",
+        "shifty":"jeremyckahn/shifty",
+        "onoff":"latest"
 
     },
     "devDependencies": {

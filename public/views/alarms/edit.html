@@ -74,7 +74,7 @@
                 <input type="time" data-ng-model="alarm.duration" id="duration" placeholder="00:30" >
             </div>
         </div>
-
+        <div class="button btn" data-ng-click="playLight(alarm.gradient)">Play</div>
         <div class="gradientpicker" data-ng-show="alarm.useLight" gradient-picker/>
 
         <div class="soundpicker" data-ng-show="alarm.useAmbientSound" sound-picker/>

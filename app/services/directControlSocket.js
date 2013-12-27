@@ -5,6 +5,7 @@ var Hardware = mongoose.model('Hardware');
 var hardwareAccess = require('./hardwareAccess');
 var mplayer = require('./mplayer');
 var soundMixer = require('./soundMixer');
+var lightMixer = require('./lightMixer');
 var hardware;
 
 var map = function(val, fl,fu,tl,tu){
@@ -59,7 +60,12 @@ io.sockets.on('connection',function(socket){
     socket.on('playPreview', function(list){
        soundMixer.play(list);
     });
-    socket.on('stop', function(){
+    socket.on('stopPreview', function(){
         soundMixer.stop();
+    });
+
+    socket.on('playLight',function(list){
+
+        lightMixer.play(list,'00:10');
     });
 });

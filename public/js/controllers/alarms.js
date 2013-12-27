@@ -109,6 +109,9 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     $scope.stopAudio = function(audio){
         socket.emit('stop',audio);
     };
+    $scope.playLight=function(list){
+        socket.emit('playLight',list);
+    }
 
     $scope.playAudioPreview = function(files){
         socket.emit('playPreview',files);

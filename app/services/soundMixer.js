@@ -9,6 +9,14 @@ var mplayer = require('./mplayer');
 var timeOuts = new Array();
 var instances = new Array();
 
+exports.updateHardware = function(){
+    Hardware.find().populate('user', 'name username').exec(function(err,hardwares){
+        if(hardwares.length>0){
+            hardware=hardwares[0];
+        }
+    });
+};
+
 var convertTimeToMillis = function(time){
     var t = time.split(':');
     return ((parseInt(t[0])*60+parseInt(t[1]))*1000);
