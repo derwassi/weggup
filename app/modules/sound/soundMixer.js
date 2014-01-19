@@ -3,26 +3,23 @@
  */
 
 var _ = require('underscore');
-var mplayer = require('./mplayer');
+var soundAccess = require('./../../hardware/soundAccess');
 
 
 var timeOuts = new Array();
 var instances = new Array();
 
-exports.updateHardware = function(){
-    Hardware.find().populate('user', 'name username').exec(function(err,hardwares){
-        if(hardwares.length>0){
-            hardware=hardwares[0];
-        }
-    });
-};
 
 var convertTimeToMillis = function(time){
     var t = time.split(':');
     return ((parseInt(t[0])*60+parseInt(t[1]))*1000);
 }
 
-exports.play = function(list,length,start){
+var list = [];
+var length = 1;
+var start = 0;
+
+var play = function(){
     if(!start) start='0:0';
     start = convertTimeToMillis(start)-100;//-100 ms  to ensure start of first sound!
     exports.stop();
@@ -40,7 +37,7 @@ exports.play = function(list,length,start){
             to=to-start;
             from = Math.max(from-start,0);
             console.log(to,from);
-            var player = mplayer.play('./moodsounds/' + v.file, v.repeat, v.volume);
+            var player = soundAccess.play('./moodsounds/' + v.file, v.repeat, v.volume);
             instances.push(player);
             timeOuts.push(setTimeout(function(){
                 console.log('start',v.file);
@@ -55,13 +52,43 @@ exports.play = function(list,length,start){
 
 }
 
-exports.stop = function(){
-    timeOuts.forEach(function(v){
-        clearTimeout(v);
-    });
-    timeOuts = new Array();
-    instances.forEach(function(v){
-        v.stop();
-    });
-    instances = new Array();
+
+
+var running = false;
+//access restriction for light
+var soundControl = {
+    start: function(){
+       play();
+        running = true;
+    },
+    stop: function(){
+        timeOuts.forEach(function(v){
+            clearTimeout(v);
+        });
+        timeOuts = new Array();
+        instances.forEach(function(v){
+            v.stop();
+        });
+        instances = new Array();
+        running = false;
+    },
+    isProcessRunning: function(){
+        return running;
+    }
+};
+
+
+exports.play = function (p, l) {
+    sharedResources.sound.run(lightControl);
+};
+
+exports.stop = function () {
+    soundControl.stop();
+};
+
+
+exports.setParams = function(li,le,st){
+    list = li;
+    length = le;
+    start = st;
 }

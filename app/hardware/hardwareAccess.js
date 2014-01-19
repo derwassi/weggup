@@ -1,8 +1,16 @@
 
 var _ = require('underscore'),
-    piblaster = require('pi-blaster.js');
-
-
+    piblaster = require('pi-blaster.js'),
+    spi = require('mcp3008'),
+    adc = new Mcp3008(),
+    channel = 0;
+//TODO: aus model lesen, welche channels es gibt
+var values = [0,0,0,0,0];
+adc.poll(0,1000,function(value){values[0] = value;});
+adc.poll(1,1000,function(value){values[1] = value;});
+adc.poll(2,1000,function(value){values[2] = value;});
+adc.poll(3,1000,function(value){values[3] = value;});
+adc.poll(4,1000,function(value){values[4] = value;});
 
 exports.getSensor = function(pin,mode,map){
     if(typeof map == 'undefined') {
@@ -11,7 +19,7 @@ exports.getSensor = function(pin,mode,map){
     var value = 0;
     if(mode=='spi'){
         //TODO: readSpiValue
-        value = Math.random();
+        value = values[pin];
     }
     value = map(value);
     return value;

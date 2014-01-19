@@ -5,18 +5,10 @@
 //var tweenLite = require('./tweenLite');
 var shifty = require('shifty/dist/shifty');
 console.log(shifty);
-var hardwareAccess = require('./hardwareAccess');
-var Hardware = require('mongoose').model('Hardware');
-var hardware = {};
-exports.updateHardware = function () {
-    Hardware.find().populate('user', 'name username').exec(function (err, hardwares) {
-        if (hardwares.length > 0) {
-            hardware = hardwares[0];
-        }
-    });
-};
 
-exports.updateHardware();
+var sharedResources = require('./../../services/sharedResources');
+
+var lightAccess = require('./../../hardware/lightAccess');
 
 
 var pos = 0;
@@ -38,19 +30,7 @@ function hexToRgb(hex) {
     } : null;
 }
 
-var setColor = function (model) {
-    //console.log('test',model);
-    hardwareAccess.setActuator(model.r, hardware.actuators['red'].pin, hardware.actuators['red'].mode, function (v) {
-        return map(v, 0, 255, 0, 1);
-    });
-    hardwareAccess.setActuator(model.g, hardware.actuators['green'].pin, hardware.actuators['green'].mode, function (v) {
-        return map(v, 0, 255, 0, 1);
-    });
-    hardwareAccess.setActuator(model.b, hardware.actuators['blue'].pin, hardware.actuators['blue'].mode, function (v) {
-        return map(v, 0, 255, 0, 1);
-    });
-};
-
+//tweening between gradient points
 var tween = function () {
 
     var from = {};
@@ -67,7 +47,9 @@ var tween = function () {
     }
     to.color.r = 20;
 
-    to.onUpdate = setColor;
+    to.onUpdate = function(){
+        lightAccess.setColor(from.color.r,from.color.g,from.color.b);
+        };
     to.onUpdateParams = [from];
     to.useFrames = true;
 
@@ -80,7 +62,9 @@ var tween = function () {
         duration: to.position-from.position,
         fps:30,
         //start: function () { console.log('Off I go!'); },
-        step: setColor,
+        step: function(){
+            lightAccess.setColor(from.color.r,from.color.g,from.color.b);
+        },
         callback: function () {
             //console.log('complete');
             if (pos <= points.length) {
@@ -93,27 +77,44 @@ var tween = function () {
 
 };
 
-exports.play = function (p, l) {
+//access restriction for light
+var lightControl = {
+    start: function(){
+        exports.stop();
 
-    exports.stop();
 
-    points = p;
-    length = convertTimeToMillis(l);
-    pos = 0;
+        length = convertTimeToMillis(l);
+        pos = 0;
 
-    if (points && points.length > 0) {
-        tw = new shifty();
+        if (points && points.length > 0) {
+            tw = new shifty();
 
-        tween()
+            tween()
+        }
+    },
+    stop: function(){
+        if (tw) {
+            tw.stop();
+        }
+        lightAccess.setColor(0,0,0);
+    },
+    isProcessRunning: function(){
+        return tw.isPlaying();
     }
+};
 
 
+exports.play = function (p, l) {
+    sharedResources.light.run(lightControl);
 };
 
 exports.stop = function () {
-    if (tw) {
-        tw.stop();
-    }
-    setColor({color: {r: 0, g: 0, b: 0}});
+    lightControl.stop();
 };
+
+exports.setParams = function(p,l){
+    points = p;
+    length = l;
+
+}
 

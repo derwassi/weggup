@@ -37,6 +37,9 @@ exports.play = function (soundFile, loop, volume) {
     player.stop = function(){
         sound.kill('SIGTERM');
     }
+    player.on = function(event,callback){
+        sound.on(event,callback);
+    }
     var arguments = ['-slave'];
     if(loop){
         arguments.push('-loop');
