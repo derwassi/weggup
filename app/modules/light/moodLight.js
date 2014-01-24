@@ -73,3 +73,13 @@ exports.play = function (p, l) {
 exports.stop = function () {
     lightControl.stop();
 };
+
+
+exports.launch = function(){
+    //TODO: fetch data from model, call setparams
+    exports.start();
+};
+
+exports.getIdentifier = function(){
+    return {name:"MoodLight",identifier:"light/moodLight"};
+};

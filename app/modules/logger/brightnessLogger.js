@@ -4,7 +4,8 @@
 
 var light = require('../../hardware/brightnessAccess');
 var delta = 0.5;
-
+var mongoose = require('mongoose'),
+    Datalog = mongoose.model('Datalog');
 var last = 0, lastOuter = 0;
 var timeout;
 //Temperatur minütlich aufzeichnen
@@ -12,7 +13,8 @@ var poll = function(){
     timeout = setTimeout(function(){
         var current = light.getAmbientBrightness();
         if(Math.abs(last-current)>delta){
-            //TODO: add to model;
+            var l = new Datalog({value:current,type:'l'});
+            l.save();
             last = current;
         };
 

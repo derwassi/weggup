@@ -35,3 +35,14 @@ exports.start = function(){
 exports.stop = function(){
     lightControl.stop();
 };
+
+
+
+exports.launch = function(){
+    //TODO: fetch data from model, call setparams
+    exports.start();
+};
+
+exports.getIdentifier = function(){
+    return {name:"Lamp",identifier:"light/light"};
+};

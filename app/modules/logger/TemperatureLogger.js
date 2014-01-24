@@ -4,7 +4,7 @@
 
 var temp = require('../../hardware/temperatureAccess');
 var delta = 0.5;
-
+var datalog = Mongo
 var lastInner = 0, lastOuter = 0;
 var timeout;
 //Temperatur minütlich aufzeichnen
@@ -13,11 +13,13 @@ var poll = function(){
         var inner = temp.getInnerTemperature();
         var outer = temp.getOuterTemperature();
         if(Math.abs(lastInner-inner)>delta){
-            //TODO: add to model;
+            var l = new Datalog({value:inner,type:'ti'});
+            l.save();
             lastInner = inner;
         };
         if(Math.abs(lastOuter-outer)>delta){
-            //TODO: add to model;
+            var l = new Datalog({value:outer,type:'to'});
+            l.save();
             lastOuter = outer;
         };
 

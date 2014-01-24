@@ -17,11 +17,13 @@ var poll = function(){
         var main = acc.getMainMovement();
         var secondary = acc.getSecondaryMovement();
         if(Math.abs(main-mainLast)>delta){
-            //TODO: add to model;
+            var l = new Datalog({value:main,type:'m1'});
+            l.save();
             mainLast = main;
         };
         if(Math.abs(secondary-secondaryLast)>delta){
-            //TODO: add to model;
+            var l = new Datalog({value:secondary,type:'m2'});
+            l.save();
             secondaryLast = secondary;
         };
         //emit event, when movement is detected from first (but not second motion sensor

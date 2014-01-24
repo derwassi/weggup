@@ -92,3 +92,12 @@ exports.setParams = function(dir,file,position){
     _position = position;
 
 };
+
+exports.launch = function(){
+  //TODO: fetch data from model, call setparams
+   exports.start();
+};
+
+exports.getIdentifier = function(){
+    return {name:"Vorleser",identifier:"sound/vorleser"};
+};

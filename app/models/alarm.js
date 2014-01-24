@@ -59,11 +59,8 @@ var AlarmSchema = new Schema({
     ambientSounds:{
         type:Array,
         default: []
-    },
-    user: {
-        type: Schema.ObjectId,
-        ref: 'User'
     }
+
 
 });
 
@@ -85,7 +82,8 @@ AlarmSchema.pre('save', function(next) {
 AlarmSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('user', 'name username').exec(cb);
+    })
+    ;
 };
 
 mongoose.model('Alarm', AlarmSchema);

@@ -10,6 +10,7 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 var cronJob = require('cron').CronJob;
+var emitter = require('events').EventEmitter;
 
 
 var ringers = [];
@@ -45,15 +46,27 @@ exports.ring = function(req,res,next){
 
     next();
 };
+//TODO: alarme richtig terminieren
+/**
+ * On movement detection, initialize next sunrise alarm
+ */
+emitter.on('movement.primary',function(){
+    //TODO: get sleepcycle duration from settings (calculated continuosly)
+    var cycleLength = 3600*3*1000;
+    ringers.forEach(function(v,k){
+        var t = v.job.cronTime.getTimeout();
+        if(t>cycleLength && t<2*cycleLength){
+
+        }
+    });
+
+});
 
 exports.update = function (req, res, next) {
-
-
-
     Alarm.find().exec(function (err, alarms) {
 
         ringers.forEach(function (v, k, a) {
-            //TODO delete current cronjobs
+            v.job.stop();
         });
         ringers.length = 0;
 
@@ -69,19 +82,19 @@ exports.update = function (req, res, next) {
                 var now = new Date();
                 if (now.getHours() < time[0] || (now.getHours() == time[0] && now.getMinutes() < time[1])) {
                     ringers.push(
-                        new cronJob(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *", function () {
+                        {job:new cronJob(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *", function () {
                             ring(alarm);
-                        }));
+                            }),
+                         alarm:alarm
+                        });
                 } else {
                     now.setTime(now.getTime() + 86400 * 1000);
-                    ringers.push(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *");
+                    ringers.push({job:new cronJob(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *",function(){ring(alarm)})});
                 }
             } else {
                 //common multi day alarm
                 ringers.push(time[1] + " " + time[0] + " * * " + alarm.dayOfWeek.join(','));
             }
-
-
         });
         console.log(ringers);
 

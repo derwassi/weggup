@@ -44,7 +44,9 @@
         "pi-blaster.js":"latest",
         "socket.io":"latest",
         "shifty":"jeremyckahn/shifty",
-        "onoff":"latest"
+        "onoff":"latest",
+        "mcp3008":"git://github.com/fiskeben/mcp3008.js.git",
+        "spi":"latest"
 
     },
     "devDependencies": {
@@ -66,5 +68,6 @@
         "karma": "~0.10.4",
         "grunt-karma": "~0.6.2",
         "karma-coverage": "~0.1.0"
+
     }
 }
