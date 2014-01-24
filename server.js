@@ -3,7 +3,6 @@
  */
 var express = require('express'),
     fs = require('fs'),
-    passport = require('passport'),
     logger = require('mean-logger');
 
 /**
@@ -38,16 +37,14 @@ var walk = function(path) {
 };
 walk(models_path);
 
-//bootstrap passport config
-require('./config/passport')(passport);
 
 var app = express();
 
 //express settings
-require('./config/express')(app, passport, db);
+require('./config/express')(app, db);
 
 //Bootstrap routes
-require('./config/routes')(app, passport, auth);
+require('./config/routes')(app);
 
 //Start the app by listening on <port>
 var port = process.env.PORT || config.port;
@@ -55,7 +52,7 @@ app.listen(port);
 console.log('Express app started on port ' + port);
 
 //Initializing logger
-logger.init(app, passport, mongoose);
+logger.init(app, mongoose);
 
 //initialize sockets
 require('./app/services/directControlSocket');

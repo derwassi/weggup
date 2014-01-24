@@ -28,7 +28,7 @@ exports.hardware = function(req, res, next, id) {
     Hardware.load(id, function(err, hardware) {
          if (err) return next(err);
         if (!hardware) return next(new Error('Failed to load hardware ' + id));
-        req.hardware = hardware.populate('user', 'name username');
+        req.hardware = hardware;
         next();
     });
 };
@@ -105,7 +105,7 @@ exports.show = function(req, res) {
 exports.all = function(req, res) {
 
 
-    Hardware.find().populate('user', 'name username').exec(function(err, hardwares) {
+    Hardware.find().exec(function(err, hardwares) {
         if (err) {
             res.render('error', {
                 status: 500

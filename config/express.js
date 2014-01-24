@@ -7,7 +7,7 @@ var express = require('express'),
     helpers = require('view-helpers'),
     config = require('./config');
 
-module.exports = function(app, passport, db) {
+module.exports = function(app, db) {
     app.set('showStackError', true);    
     
     //Prettify HTML
@@ -62,8 +62,6 @@ module.exports = function(app, passport, db) {
         app.use(helpers(config.app.name));
 
         //use passport session
-        app.use(passport.initialize());
-        app.use(passport.session());
 
         //routes should be at the last
         app.use(app.router);

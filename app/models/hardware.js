@@ -112,11 +112,8 @@ var HardwareSchema = new Schema({
 
         }
 
-    },
-    owner: {
-        type: Schema.ObjectId,
-        ref: 'User'
     }
+
 });
 
 
@@ -126,7 +123,7 @@ var HardwareSchema = new Schema({
 HardwareSchema.statics.load = function(id, cb) {
     this.findOne({
         _id: id
-    }).populate('owner', 'name username').exec(cb);
+    }).exec(cb);
 };
 
 mongoose.model('Hardware', HardwareSchema);

@@ -35,14 +35,5 @@ var DatalogSchema = new Schema({
 });
 
 
-/**
- * Statics
- */
-HardwareSchema.statics.load = function(id, cb) {
-    this.findOne({
-        _id: id
-    })
-
-};
 
 mongoose.model('Datalog', DatalogSchema);

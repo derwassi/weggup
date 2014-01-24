@@ -1,4 +1,4 @@
-module.exports = function(app, passport, auth) {
+module.exports = function(app) {
     //User Routes
 
 
@@ -44,6 +44,10 @@ module.exports = function(app, passport, auth) {
     app.put('/module/light',settings.edit);
     app.put('/module/moodLight',settings.edit);
     app.put('/module/vorleser',settings.edit);
+
+    var logs = require('../app/controllers/logs');
+    app.get('/log/:type/:from/:to',logs.all);
+
 
 
     app.get('/ring',ringer.ring);

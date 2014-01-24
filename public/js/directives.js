@@ -172,4 +172,15 @@ angular.module('mean.directives', [])
 
 
         };
-    });
+    })
+    .directive('chart', function() {
+    return {
+        restrict: 'E',
+        link: function(scope, elem, attrs) {
+            var data = scope[attrs.ngModel];
+            var config = scope[attrs.config] || {};
+            $.plot(elem, data, config);
+            elem.show();
+        }
+    };
+});

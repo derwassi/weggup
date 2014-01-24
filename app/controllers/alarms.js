@@ -24,12 +24,11 @@ exports.alarm = function(req, res, next, id) {
  */
 exports.create = function(req, res,next) {
     var alarm = new Alarm(req.body);
-    alarm.user = req.user;
+    //alarm.user = req.user;
     alarm.save(function(err) {
         if (err) {
-            return res.send('users/signup', {
-                errors: err.errors,
-                alarm: alarm
+            res.render('error', {
+                status: 500
             });
         } else {
             res.jsonp(alarm);
@@ -85,7 +84,7 @@ exports.show = function(req, res) {
  */
 exports.all = function(req, res) {
 
-    Alarm.find().sort('onlyOnce, dayOfWeek, wakeTime').populate('user', 'name username').exec(function(err, alarms) {
+    Alarm.find().sort('onlyOnce, dayOfWeek, wakeTime').exec(function(err, alarms) {
         if (err) {
             res.render('error', {
                 status: 500

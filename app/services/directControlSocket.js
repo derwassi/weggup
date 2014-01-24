@@ -13,7 +13,7 @@ var map = function(val, fl,fu,tl,tu){
 };
 
 exports.updateHardware = function(){
-    Hardware.find().populate('user', 'name username').exec(function(err,hardwares){
+    Hardware.find().exec(function(err,hardwares){
         if(hardwares.length>0){
             hardware=hardwares[0];
         }
