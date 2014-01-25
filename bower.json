@@ -11,6 +11,7 @@
     "angular-bootstrap": "0.7.0",
     "angular-ui-utils": "0.0.4",
     "jquery-gradient-picker":"https://github.com/tantaman/jquery-gradient-picker.git",
+    "flot":"https://github.com/flot/flot.git",
     "jquery-ui":"latest",
      "socket.io-client":"latest"
   }

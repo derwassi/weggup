@@ -11,9 +11,12 @@ angular.module('mean').config(['$routeProvider',
         when('/alarms/:alarmId/edit', {
             templateUrl: 'views/alarms/edit.html'
         }).
-        when('/alarms/:alarmId', {
-            templateUrl: 'views/alarms/view.html'
-        }).
+            when('/alarms/:alarmId', {
+                templateUrl: 'views/alarms/view.html'
+            }).
+            when('/logs', {
+                templateUrl: 'views/logs/list.html'
+            }).
         when('/', {
             templateUrl: 'views/index.html'
         }).

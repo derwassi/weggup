@@ -52,11 +52,16 @@ app.listen(port);
 console.log('Express app started on port ' + port);
 
 //Initializing logger
-logger.init(app, mongoose);
+logger.init(app, {},mongoose);
 
 //initialize sockets
 require('./app/services/directControlSocket');
 
+//initialize logging
+require('./app/hardware/hardwareAccess');
+require('./app/modules/logger/brightnessLogger').start();
+require('./app/modules/logger/movementLogger').start();
+require('./app/modules/logger/TemperatureLogger').start();
 
 
 //expose app

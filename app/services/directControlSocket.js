@@ -2,10 +2,10 @@
 var io = require('socket.io').listen(3010);
 var mongoose = require('mongoose');
 var Hardware = mongoose.model('Hardware');
-var hardwareAccess = require('./hardwareAccess');
-var mplayer = require('./mplayer');
-var soundMixer = require('./soundMixer');
-var lightMixer = require('./lightMixer');
+var hardwareAccess = require('../hardware/hardwareAccess');
+var mplayer = require('../hardware/soundAccess');
+var soundMixer = require('../modules/sound/soundMixer');
+var lightMixer = require('../modules/light/sequenceLight');
 var hardware;
 
 var map = function(val, fl,fu,tl,tu){

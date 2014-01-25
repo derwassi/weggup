@@ -10,7 +10,8 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 var cronJob = require('cron').CronJob;
-var emitter = require('events').EventEmitter;
+var events = require('events');
+var emitter = new events.EventEmitter();
 
 
 var ringers = [];

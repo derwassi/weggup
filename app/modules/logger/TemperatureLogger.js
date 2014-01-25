@@ -4,7 +4,8 @@
 
 var temp = require('../../hardware/temperatureAccess');
 var delta = 0.5;
-var datalog = Mongo
+var mongoose = require('mongoose'),
+    Datalog = mongoose.model('Datalog');
 var lastInner = 0, lastOuter = 0;
 var timeout;
 //Temperatur minütlich aufzeichnen

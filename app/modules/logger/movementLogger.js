@@ -8,6 +8,8 @@ var eventEmitter = require('events').EventEmitter;
 var delta = 0.2;
 var mainThreashold = 1;
 var secondaryThreashold = 0.8;
+var mongoose = require('mongoose'),
+    Datalog = mongoose.model('Datalog');
 
 var mainLast = 0, secondaryLast = 0;
 var timeout;

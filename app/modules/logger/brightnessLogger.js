@@ -11,7 +11,9 @@ var timeout;
 //Temperatur minütlich aufzeichnen
 var poll = function(){
     timeout = setTimeout(function(){
+
         var current = light.getAmbientBrightness();
+        console.log(current);
         if(Math.abs(last-current)>delta){
             var l = new Datalog({value:current,type:'l'});
             l.save();
@@ -19,7 +21,7 @@ var poll = function(){
         };
 
         poll();
-    },60000);
+    },1000);
 }
 
 exports.start = function(){

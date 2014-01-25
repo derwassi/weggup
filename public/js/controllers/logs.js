@@ -1,4 +1,4 @@
-angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','Hardware','filterFilter', 'Files', function ($scope, $routeParams, $location, Global, Alarms,Hardware, filterFilter,Files) {
+angular.module('mean.logs').controller('LogsController', ['$scope', '$routeParams', '$location', 'Global', 'Logs' ,function ($scope, $routeParams, $location, Global,Logs) {
 
     $scope.from = new Date(new Date().getTime()-86400*1000);
     $scope.to = new Date();
@@ -23,26 +23,29 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     var processData = function(data){
         var d = [];
         for(var i=0;i<data.length;i++){
+
             d.push([Date.parse(data[i].created),data[i].value]);
         }
         return d;
     };
     var updateLog = function(log,from,to,callback){
-        Logs.get({
+        var params = {
             type: log.id,
-            from:from,
-            to: to
-        }, function(alarm) {
-            log.data = processData(data);
+            from:from.getTime(),
+            to: to.getTime()
+        };
+
+        Logs.query(params, function(logs) {
+            log.data = processData(logs);
             callback(log);
         });
     };
 
     var setGraphs = function(){
         $scope.data = [];
-        angular.each($scope.logs,function(v){
-            if(log.selected){
-                data.push({label:log.name,data:log.data, color:log.color});
+        angular.forEach($scope.logs,function(log){
+            if(log.selected && log.data){
+                $scope.data.push({label:log.name,data:log.data, color:log.color});
             }
         });
     };
@@ -56,8 +59,10 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     $scope.change = function(log){
         if(log.selected && log.data==null){
            updateLog(log,$scope.from, $scope.to,setGraphs);
+        }else{
+
+            setGraphs();
         }
-        setGraphs();
 
     };
 

@@ -14,6 +14,6 @@ var hardwareAccess = require('./hardwareAccess');
 
 exports.getAmbientBrightness = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(2,'spi');
+    return hardwareAccess.getSensor(2,'spi');
 }
 

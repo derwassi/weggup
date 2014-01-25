@@ -174,13 +174,38 @@ angular.module('mean.directives', [])
         };
     })
     .directive('chart', function() {
+
     return {
-        restrict: 'E',
+
         link: function(scope, elem, attrs) {
+
             var data = scope[attrs.ngModel];
+
             var config = scope[attrs.config] || {};
             $.plot(elem, data, config);
+            scope.$watch(attrs.ngModel,function(){
+                data = scope[attrs.ngModel];
+                $.plot(elem,data,config);
+                elem.show();
+            });
             elem.show();
         }
     };
-});
+}).directive(
+    'dateInput',
+    function(dateFilter) {
+        return {
+            require: 'ngModel',
+            //template: '<input type="date"></input>',
+            replace: true,
+            link: function(scope, elm, attrs, ngModelCtrl) {
+                ngModelCtrl.$formatters.unshift(function (modelValue) {
+                    return dateFilter(modelValue, 'yyyy-MM-dd');
+                });
+
+                ngModelCtrl.$parsers.unshift(function(viewValue) {
+                    return new Date(viewValue);
+                });
+            }
+        };
+    });

@@ -1,9 +1,40 @@
-<section data-ng-controller="LogsController" >
-    <ul class="logs">
-        <li data-ng-repeat="log in logs">
-            <input type="checkbox" ng-model="{{log.selected}}" id="log-{{log.id}}" ng-change="changed(log.id,log.selected)"/> <label for="log-{{log.id}}">{{log.name}}</label>
-        </li>
-    </ul>
+<section data-ng-controller="LogsController">
+    <form class="form-horizontal row" role="form">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label" for="from">From</label>
 
-    <chart ng-model='data' config="chartConfig"></chart>
+                <div class="controls">
+                    <input type="date" date-input class="form-control" ng-model="from" id="from"
+                           ng-change="changeDate()">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="to">To</label>
+
+                <div class="controls">
+                    <input type="date" date-input class="form-control" ng-model="to" id="to"
+                           ng-change="changeDate()" placeholder="">
+                </div>
+            </div>
+
+        </div>
+
+            <div class="span6">
+                <div class="control-group" data-ng-repeat="log in logs">
+                    <div class="controls">
+
+                        <label class="checkbox" for="log-{{log.id}}">
+                            <input type="checkbox" ng-model="log.selected" id="log-{{log.id}}"
+                                   ng-change="change(log)"/>
+                            {{log.name}}</label>
+
+                    </div>
+                </div>
+
+            </div>
+
+    </form>
+
+    <div chart ng-model='data' config="chartConfig" style="width:100%;height:400px;"></div>
 </section>

@@ -46,7 +46,7 @@ module.exports = function(app) {
     app.put('/module/vorleser',settings.edit);
 
     var logs = require('../app/controllers/logs');
-    app.get('/log/:type/:from/:to',logs.all);
+    app.get('/logs/:type/:from/:to',logs.all);
 
 
 
