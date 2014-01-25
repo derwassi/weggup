@@ -14,10 +14,10 @@ var hardwareAccess = require('./hardwareAccess');
 
 exports.getMainMovement = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(3,'spi');
-}
+    return hardwareAccess.getSensor(3,'spi');
+};
 
 exports.getSecondaryMovement = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(4,'spi');
-}
+   return hardwareAccess.getSensor(4,'spi');
+};

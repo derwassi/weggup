@@ -4,7 +4,7 @@
  */
 
 var acc = require('../../hardware/acceleratorAccess');
-var eventEmitter = require('events').EventEmitter;
+var eventEmitter = require('../../services/eventbus').emitter;
 var delta = 0.2;
 var mainThreashold = 1;
 var secondaryThreashold = 0.8;
@@ -16,18 +16,20 @@ var timeout;
 //Temperatur minütlich aufzeichnen
 var poll = function(){
     timeout = setTimeout(function(){
+        var l;
         var main = acc.getMainMovement();
         var secondary = acc.getSecondaryMovement();
+
         if(Math.abs(main-mainLast)>delta){
-            var l = new Datalog({value:main,type:'m1'});
+            l = new Datalog({value:main,type:'m1'});
             l.save();
             mainLast = main;
-        };
+        }
         if(Math.abs(secondary-secondaryLast)>delta){
-            var l = new Datalog({value:secondary,type:'m2'});
+            l = new Datalog({value:secondary,type:'m2'});
             l.save();
             secondaryLast = secondary;
-        };
+        }
         //emit event, when movement is detected from first (but not second motion sensor
         if(main>mainThreashold && secondary<secondaryThreashold){
             eventEmitter.emit('movement.primary');
@@ -35,8 +37,8 @@ var poll = function(){
 
 
         poll();
-    },60000);
-}
+    },100);
+};
 
 exports.start = function(){
     poll();
@@ -44,4 +46,4 @@ exports.start = function(){
 
 exports.stop = function(){
     clearTimeout(timeout);
-}
+};

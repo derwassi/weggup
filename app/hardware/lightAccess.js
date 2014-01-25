@@ -22,13 +22,13 @@ exports.updateHardware();
 
 exports.setColor = function (r,g,b) {
     //console.log('test',model);
-    hardwareAccess.setActuator(r, hardware.actuators['red'].pin, hardware.actuators['red'].mode, function (v) {
+    hardwareAccess.setActuator(r, hardware.actuators.red.pin, hardware.actuators.red.mode, function (v) {
         return map(v, 0, 255, 0, 1);
     });
-    hardwareAccess.setActuator(g, hardware.actuators['green'].pin, hardware.actuators['green'].mode, function (v) {
+    hardwareAccess.setActuator(g, hardware.actuators.green.pin, hardware.actuators.green.mode, function (v) {
         return map(v, 0, 255, 0, 1);
     });
-    hardwareAccess.setActuator(b, hardware.actuators['blue'].pin, hardware.actuators['blue'].mode, function (v) {
+    hardwareAccess.setActuator(b, hardware.actuators.blue.pin, hardware.actuators.blue.mode, function (v) {
         return map(v, 0, 255, 0, 1);
     });
 };

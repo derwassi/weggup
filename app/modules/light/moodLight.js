@@ -5,7 +5,7 @@
 //var tweenLite = require('./tweenLite');
 var shifty = require('shifty/dist/shifty');
 console.log(shifty);
-var hardwareAccess = require('./../services/hardwareAccess');
+var hardwareAccess = require('./../../hardware/hardwareAccess');
 var sharedResources = require('./../../services/sharedResources');
 var lightAccess = require('./../../hardware/lightAccess');
 
@@ -21,7 +21,7 @@ var tween = function () {
     to.g /= length;
     to.b /= length;
 
-    to.onUpdate = setColor;
+    to.onUpdate = lightAccess.setColor;
     to.onUpdateParams = [from];
     to.useFrames = true;
 
@@ -29,7 +29,7 @@ var tween = function () {
     tw.tween({
         from: from,
         to: to,
-        duration: math.random()*10000+5000,//TODO konfigurierbar
+        duration: Math.random()*10000+5000,//TODO konfigurierbar
         fps:30,
         //start: function () { console.log('Off I go!'); },
         step: function(){

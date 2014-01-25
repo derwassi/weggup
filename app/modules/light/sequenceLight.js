@@ -34,7 +34,7 @@ function hexToRgb(hex) {
 var tween = function () {
 
     var from = {};
-    if (pos == 0) {
+    if (pos === 0) {
         from = {position: 0, color: hexToRgb(points[0].color)};
     } else {
         from = {position: points[pos - 1].position * length, color: hexToRgb(points[pos - 1].color)};
@@ -89,7 +89,7 @@ var lightControl = {
         if (points && points.length > 0) {
             tw = new shifty();
 
-            tween()
+            tween();
         }
     },
     stop: function(){
@@ -116,5 +116,5 @@ exports.setParams = function(p,l){
     points = p;
     length = l;
 
-}
+};
 

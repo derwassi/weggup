@@ -7,13 +7,14 @@ var _ = require('underscore'),
     }catch(e){
         var f=function(timeout,callback){
 
-           setTimeout(function(){f(timeout,callback)},timeout);
+           setTimeout(function(){f(timeout,callback);},timeout);
             callback(-1);
-        }
-        adc = {poll:function(idx,interval,callback){
+        };
+        adc = {
+            poll:function(idx,interval,callback){
             f(interval,callback);
 
-        }}
+        }};
     }
     var channel = 0;
 //TODO: aus model lesen, welche channels es gibt
@@ -21,9 +22,9 @@ var values = [0,0,0,0,0];
 
 adc.poll(0,1000,function(value){values[0] = value; });
 adc.poll(1,1000,function(value){values[1] = value;});
-adc.poll(2,1000,function(value){values[2] = value; console.log(value)});
-adc.poll(3,1000,function(value){values[3] = value;});
-adc.poll(4,1000,function(value){values[4] = value;});
+adc.poll(2,1000,function(value){values[2] = value;});
+adc.poll(3,100,function(value){values[3] = value;});
+adc.poll(4,100,function(value){values[4] = value;});
 
 exports.getSensor = function(pin,mode,map){
     if(typeof map == 'undefined') {

@@ -16,6 +16,7 @@ exports.alarm = function(req, res, next, id) {
         if (!alarm) return next(new Error('Failed to load alarm ' + id));
         req.alarm = alarm;
         next();
+        return false;
     });
 };
 
@@ -45,7 +46,7 @@ exports.create = function(req, res,next) {
 exports.update = function(req, res,next) {
     var alarm = req.alarm;
     alarm = _.extend(alarm, req.body);
-    alarm.save(function(err) {
+    alarm.save(function() {
         res.jsonp(alarm);
 
     });

@@ -6,8 +6,8 @@ exports.getLauncher = function(module,url){
     return function(req,res,next){
         module.launch();
         res.send(url);
-    }
-}
+    };
+};
 
 exports.getStopper = function(module,url){
 
@@ -15,4 +15,4 @@ exports.getStopper = function(module,url){
         module.stop();
         res.send(url);
     }
-}
+};

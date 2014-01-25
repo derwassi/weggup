@@ -10,10 +10,10 @@ var hardwareAccess = require('./hardwareAccess');
 exports.getOuterTemperature = function(){
     //TODO: aus Modell lesen
     hardwareAccess.getSensor(0,'spi');
-}
+};
 
 
 exports.getInnerTemperature = function(){
     //TODO: aus Modell lesen
     hardwareAccess.getSensor(1,'spi');
-}
+};

@@ -14,6 +14,7 @@ var spawn = require('child_process').spawn;
 exports.play = function (soundFile, loop, volume) {
     console.log(soundFile,loop,volume);
     var sound;
+    var args = [];
     var player = {};
     player.sendCommand = function (cmd) {
        try{
@@ -35,24 +36,25 @@ exports.play = function (soundFile, loop, volume) {
         player.sendCommand('volume ' + vol + ' 1');
     };
     player.stop = function(){
+        sound.removeAllListeners('exit');
         sound.kill('SIGTERM');
-    }
+    };
     player.on = function(event,callback){
         sound.on(event,callback);
-    }
-    var arguments = ['-slave'];
+    };
+    args.push('-slave');
     if(loop){
-        arguments.push('-loop');
-        arguments.push('0');
+        args.push('-loop');
+        args.push('0');
     }
     if(volume){
-        arguments.push('-volume');
-        arguments.push(volume+"");
+        args.push('-volume');
+        args.push(volume+"");
     }
-    arguments.push(soundFile);
+    args.push(soundFile);
 
 
-    sound = spawn('mplayer', arguments);
+    sound = spawn('mplayer', args);
     player.pause();
 
 

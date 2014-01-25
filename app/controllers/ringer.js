@@ -10,8 +10,8 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 var cronJob = require('cron').CronJob;
-var events = require('events');
-var emitter = new events.EventEmitter();
+var events = require('../services/eventbus');
+var emitter = events.emitter;
 
 
 var ringers = [];
@@ -90,7 +90,7 @@ exports.update = function (req, res, next) {
                         });
                 } else {
                     now.setTime(now.getTime() + 86400 * 1000);
-                    ringers.push({job:new cronJob(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *",function(){ring(alarm)})});
+                    ringers.push({job:new cronJob(time[1] + " " + time[0] + " " + now.getDate() + " " + (now.getMonth() + 1) + " *",function(){ring(alarm);})});
                 }
             } else {
                 //common multi day alarm

@@ -6,14 +6,14 @@ var _ = require('underscore');
 var soundAccess = require('./../../hardware/soundAccess');
 
 
-var timeOuts = new Array();
-var instances = new Array();
+var timeOuts = [];
+var instances = [];
 
 
 var convertTimeToMillis = function(time){
     var t = time.split(':');
     return ((parseInt(t[0])*60+parseInt(t[1]))*1000);
-}
+};
 
 var list = [];
 var length = 1;
@@ -25,7 +25,7 @@ var play = function(){
     exports.stop();
     console.log(list);
     if(!list){
-        list = new Array();
+        list = [];
     }
     list.forEach(function(v){
 
@@ -48,9 +48,9 @@ var play = function(){
                 player.stop();
             },to));
         }
-    })
+    });
 
-}
+};
 
 
 
@@ -65,11 +65,11 @@ var soundControl = {
         timeOuts.forEach(function(v){
             clearTimeout(v);
         });
-        timeOuts = new Array();
+        timeOuts = [];
         instances.forEach(function(v){
             v.stop();
         });
-        instances = new Array();
+        instances = [];
         running = false;
     },
     isProcessRunning: function(){
@@ -78,17 +78,11 @@ var soundControl = {
 };
 
 
-exports.play = function (p, l) {
-    sharedResources.sound.run(lightControl);
+exports.play = function (l) {
+    soundAccess.play(l);
 };
 
 exports.stop = function () {
     soundControl.stop();
 };
 
-
-exports.setParams = function(li,le,st){
-    list = li;
-    length = le;
-    start = st;
-}

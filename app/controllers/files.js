@@ -6,19 +6,21 @@ var fs = require('fs');
 
 
 /**
+ *
  * List of files
  */
 exports.all = function(req, res) {
     //TODO: in model auslagern!
-    fs.readdir('./moodsounds',function(err,files){
+    var basedir = req.params.basedir || './moodsounds/';
+    fs.readdir(basedir,function(err,files){
         if (err) {
             res.render('error', {
                 status: 500
             });
         } else {
             console.log(files);
-            var f = []
-            for(file in files){
+            var f = [];
+            for(var file in files){
                 f.push({file:files[file]});
             }
 

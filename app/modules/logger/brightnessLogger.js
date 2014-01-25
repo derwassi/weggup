@@ -13,16 +13,15 @@ var poll = function(){
     timeout = setTimeout(function(){
 
         var current = light.getAmbientBrightness();
-        console.log(current);
         if(Math.abs(last-current)>delta){
             var l = new Datalog({value:current,type:'l'});
             l.save();
             last = current;
-        };
+        }
 
         poll();
     },1000);
-}
+};
 
 exports.start = function(){
     poll();
@@ -30,7 +29,7 @@ exports.start = function(){
 
 exports.stop = function(){
     clearTimeout(timeout);
-}
+};
 
 
 

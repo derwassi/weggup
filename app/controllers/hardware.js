@@ -30,6 +30,7 @@ exports.hardware = function(req, res, next, id) {
         if (!hardware) return next(new Error('Failed to load hardware ' + id));
         req.hardware = hardware;
         next();
+        return false;
     });
 };
 

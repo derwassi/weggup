@@ -11,22 +11,23 @@ var timeout;
 //Temperatur minütlich aufzeichnen
 var poll = function(){
     timeout = setTimeout(function(){
+        var l;
         var inner = temp.getInnerTemperature();
         var outer = temp.getOuterTemperature();
         if(Math.abs(lastInner-inner)>delta){
-            var l = new Datalog({value:inner,type:'ti'});
+            l = new Datalog({value:inner,type:'ti'});
             l.save();
             lastInner = inner;
-        };
+        }
         if(Math.abs(lastOuter-outer)>delta){
-            var l = new Datalog({value:outer,type:'to'});
+            l = new Datalog({value:outer,type:'to'});
             l.save();
             lastOuter = outer;
-        };
+        }
 
         poll();
-    },60000);
-}
+    },1000);
+};
 
 exports.start = function(){
     poll();
@@ -34,7 +35,7 @@ exports.start = function(){
 
 exports.stop = function(){
     clearTimeout(timeout);
-}
+};
 
 
 

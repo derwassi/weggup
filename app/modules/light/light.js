@@ -7,8 +7,10 @@ var sharedResources = require('./../../services/sharedResources');
 
 var lightAccess = require('./../../hardware/lightAccess');
 
-
+var settingsManager = require('../../services/settings');
 var running = false;
+
+
 
 
 
@@ -19,8 +21,8 @@ var lightControl = {
         running = true;
     },
     stop: function(){
-      setColor(0,0,0);
-        running = fale;
+        lightAccess.setColor(0,0,0);
+        running = false;
     },
     isProcessRunning: function(){
         return running;

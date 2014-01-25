@@ -5,10 +5,6 @@ var _ = require('underscore');
 
 
 
-exports.sound = createAccessControl;
-
-exports.light = createAccessControl;
-
 
 var createAccessControl = function () {
     var currentProcess = null;
@@ -19,7 +15,7 @@ var createAccessControl = function () {
 
         run: function (process) {
             if (currentProcess) {
-                exports.stop();
+                currentProcess.stop();
             }
             currentProcess = process;
             process.start();
@@ -37,5 +33,11 @@ var createAccessControl = function () {
     };
 
 
-}
+};
+
+
+
+exports.sound = createAccessControl();
+
+exports.light = createAccessControl();
 
