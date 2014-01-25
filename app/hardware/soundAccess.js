@@ -12,7 +12,6 @@ var spawn = require('child_process').spawn;
 
 
 exports.play = function (soundFile, loop, volume) {
-    console.log(soundFile,loop,volume);
     var sound;
     var args = [];
     var player = {};

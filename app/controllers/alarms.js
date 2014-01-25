@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
  * Find article by id
  */
 exports.alarm = function(req, res, next, id) {
-    console.log(id);
     Alarm.load(id, function(err, alarm) {
          if (err) return next(err);
         if (!alarm) return next(new Error('Failed to load alarm ' + id));

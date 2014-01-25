@@ -42,7 +42,6 @@ angular.module('mean.directives', [])
             var startTween = function(){
                 var multiplier = $('.speed',playerControls);
                 var animationTime = (1-playerState.position)*time/parseInt(multiplier.val());
-                console.log(animationTime, playerState.position);
 
                 playerState = $({position:playerState.position});//create new element, or animation won't work a second time...
                 playerState.animate({position:1},{
@@ -78,12 +77,10 @@ angular.module('mean.directives', [])
                 if($(this).hasClass('playing')){
                     endTween(playerState);
                 }else{
-                    console.log(player.slider("value"), typeof player.slider("value"));
                     if(player.slider("value") == 1){
                         player.slider("value",0);
                     }
                     playerState.position = player.slider("value");
-                    console.log(playerState.position);
                     startTween();
 
                 }
@@ -125,12 +122,11 @@ angular.module('mean.directives', [])
                 return 100;
             };
             scope.addItem = function(){
-                console.log('test');
                 if(typeof alarm.ambientSounds == 'undefined'){
                     alarm.ambientSounds = [];
                 }
                 alarm.ambientSounds.push({});
-                console.log(alarm.ambientSounds);
+
             };
             scope.removeItem = function(item){
                 angular.forEach(alarm.ambientSounds,function(v,k){
@@ -140,11 +136,11 @@ angular.module('mean.directives', [])
                 });
             };
             scope.play = function(sound){
-                console.log('play', sound);
+                //TODO
             };
 
             scope.stop = function(sound){
-                console.log('stop', sound);
+                //TODO
             };
 
 

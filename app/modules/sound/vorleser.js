@@ -65,7 +65,6 @@ var reduceReading;
 var reduceVolume=function(){
     reduceReading = setTimeout(function(){
         _volume = settings.lowVolume;
-        console.log(_volume);
         player.volume(_volume);
         //Stop reading after one minute
         stopReading = setTimeout(function(){

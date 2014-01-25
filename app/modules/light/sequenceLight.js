@@ -4,7 +4,6 @@
 
 //var tweenLite = require('./tweenLite');
 var shifty = require('shifty/dist/shifty');
-console.log(shifty);
 
 var sharedResources = require('./../../services/sharedResources');
 

@@ -23,7 +23,6 @@ var play = function(){
     if(!start) start='0:0';
     start = convertTimeToMillis(start)-100;//-100 ms  to ensure start of first sound!
     exports.stop();
-    console.log(list);
     if(!list){
         list = [];
     }
@@ -36,15 +35,12 @@ var play = function(){
         if(to>start){
             to=to-start;
             from = Math.max(from-start,0);
-            console.log(to,from);
             var player = soundAccess.play('./moodsounds/' + v.file, v.repeat, v.volume);
             instances.push(player);
             timeOuts.push(setTimeout(function(){
-                console.log('start',v.file);
                 player.play();
             },from));
             timeOuts.push(setTimeout(function(){
-                console.log('stop', v.file);
                 player.stop();
             },to));
         }

@@ -24,7 +24,6 @@ if(Hardware.count({},function(err,c){
  * Find article by id
  */
 exports.hardware = function(req, res, next, id) {
-    console.log(id);
     Hardware.load(id, function(err, hardware) {
          if (err) return next(err);
         if (!hardware) return next(new Error('Failed to load hardware ' + id));

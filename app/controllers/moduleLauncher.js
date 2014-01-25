@@ -14,5 +14,5 @@ exports.getStopper = function(module,url){
     return function(req,res,next){
         module.stop();
         res.send(url);
-    }
+    };
 };

@@ -97,7 +97,6 @@ exports.update = function (req, res, next) {
                 ringers.push(time[1] + " " + time[0] + " * * " + alarm.dayOfWeek.join(','));
             }
         });
-        console.log(ringers);
 
     });
     next();

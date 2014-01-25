@@ -14,7 +14,6 @@ exports.all = function(req, res) {
             from: new Date(parseInt(req.params.from)),
             to: new Date(parseInt(req.params.to))
     };
-    console.log(data);
     Datalog.find({created:{$gte: data.from, $lt:data.to},type:data.type}).sort('created').exec(function(err, logs) {
         if (err) {
             res.render('500', {

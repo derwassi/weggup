@@ -18,7 +18,6 @@ exports.all = function(req, res) {
                 status: 500
             });
         } else {
-            console.log(files);
             var f = [];
             for(var file in files){
                 f.push({file:files[file]});

@@ -41,7 +41,6 @@ io.sockets.on('connection',function(socket){
     });
     socket.on('play', function(audio){
         if(music[audio.file]){
-            console.log('blubb2');
             try{
                 music[audio.file].stop();
             }catch(err){
