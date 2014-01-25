@@ -69,7 +69,7 @@ angular.module('mean.directives', [])
                 position:0
             });
 
-            player = $('<div class="gradientplayer"/>');
+            player = $('<div class="gradientplayer"></div>');
             player.slider({min:0,max:1,step:0.00001,change:function(){updateColor(player.slider('value'));}});
 
 
@@ -166,8 +166,8 @@ angular.module('mean.directives', [])
                 //TODO less strict coupling via arguments!
 
 
-            }
-            ,templateUrl: 'views/directives/soundPicker.html'
+            },
+            templateUrl: 'views/directives/soundPicker.html'
 
 
 

@@ -1,0 +1,22 @@
+<section data-ng-controller="ModulesController" >
+    <h1>Vorleser</h1>
+    <form class="form-horizontal" data-ng-submit="save()">
+
+        <div class="control-group"  ng-repeat="(k,v) in settings">
+
+            <label class="control-label" for="setting-{{k}}">{{k}}</label>
+
+            <div class="controls">
+                <input type="text" class="form-control" ng-model="settings[k]" id="setting-{{k}}"
+                        />
+            </div>
+        </div>
+        <div class="control-group" >
+            <div class="controls">
+                <input type="submit"  class="form-control" value="save"
+                        />
+            </div>
+        </div>
+    </form>
+
+</section>

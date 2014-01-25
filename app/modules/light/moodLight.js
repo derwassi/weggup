@@ -5,10 +5,17 @@
 //var tweenLite = require('./tweenLite');
 var shifty = require('shifty/dist/shifty');
 console.log(shifty);
-var hardwareAccess = require('./../../hardware/hardwareAccess');
 var sharedResources = require('./../../services/sharedResources');
 var lightAccess = require('./../../hardware/lightAccess');
+var settingsManager = require('../../services/settings');
 
+var identifier = "light/moodLight";
+var settings={
+  duration:3600000
+};
+
+//store initial settings in DB
+settingsManager.init(settings,identifier);
 
 var tw = null;
 
@@ -45,12 +52,14 @@ var tween = function () {
 
 
 var running = false;
+var timeOut;
 var lightControl = {
     start: function(){
         exports.stop();
         tw = new shifty();
         running = true;
         tween();
+        timeOut = setTimeout(exports.stop,settings.duration);
 
     },
     stop: function(){
@@ -58,6 +67,7 @@ var lightControl = {
             tw.stop();
         }
         lightAccess.setColor(0,0,0);
+        clearTimeout(timeOut);
         running = false;
     },
     isProcessRunning: function(){
@@ -72,6 +82,7 @@ exports.play = function (p, l) {
 
 exports.stop = function () {
     lightControl.stop();
+
 };
 
 
@@ -81,5 +92,25 @@ exports.launch = function(){
 };
 
 exports.getIdentifier = function(){
-    return {name:"MoodLight",identifier:"light/moodLight"};
+    return {name:"MoodLight",identifier:identifier};
+};
+
+var loadSettings = function(){
+    settingsManager.load(settings,identifier);
+};
+
+var saveSettings = function(s){
+    settingsManager.save(s,identifier,settings);
+
+};
+
+
+exports.setSettings = function(s){
+
+    saveSettings(s);
+
+};
+
+exports.getSettings = function(){
+    return settings;
 };

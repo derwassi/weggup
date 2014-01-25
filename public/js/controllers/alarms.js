@@ -111,7 +111,7 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     };
     $scope.playLight=function(list){
         socket.emit('playLight',list);
-    }
+    };
 
     $scope.playAudioPreview = function(files){
         socket.emit('playPreview',files);
@@ -144,5 +144,5 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     };
     $scope.loadSoundlist = function(){
 
-    }
+    };
 }]);

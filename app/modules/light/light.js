@@ -8,20 +8,27 @@ var sharedResources = require('./../../services/sharedResources');
 var lightAccess = require('./../../hardware/lightAccess');
 
 var settingsManager = require('../../services/settings');
+var identifier = "light/light";
 var running = false;
 
+var settings = {
+    duration:3600000,
+    red:255,
+    green:255,
+    blue:255
+};
 
-
-
+var timeOut;
 
 var lightControl = {
     start: function(){
-        //TODO: custom color (from Model)
-        lightAccess.setColor(255,255,255);
+        lightAccess.setColor(settings.red,settings.green,settings.blue);
         running = true;
+        timeOut = setTimeout(exports.stop,settings.duration);
     },
     stop: function(){
         lightAccess.setColor(0,0,0);
+        clearTimeout(timeOut);
         running = false;
     },
     isProcessRunning: function(){
@@ -41,10 +48,29 @@ exports.stop = function(){
 
 
 exports.launch = function(){
-    //TODO: fetch data from model, call setparams
     exports.start();
 };
 
 exports.getIdentifier = function(){
-    return {name:"Lamp",identifier:"light/light"};
+    return {name:"Lamp",identifier:identifier};
+};
+
+var loadSettings = function(){
+    settingsManager.load(settings,identifier);
+};
+
+var saveSettings = function(s){
+    settingsManager.save(s,identifier,settings);
+
+};
+
+
+exports.setSettings = function(s){
+
+    saveSettings(s);
+
+};
+
+exports.getSettings = function(){
+    return settings;
 };

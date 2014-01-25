@@ -21,29 +21,19 @@ module.exports = function(app) {
     var files = require('../app/controllers/files');
     app.get('/files',files.all);
 
-
-
     var settings = require('../app/controllers/settings');
     var moduleLauncher = require('../app/controllers/moduleLauncher');
-    var lightModule = require('../app/modules/light/light');
-    var moodLightModule = require('../app/modules/light/light');
-    var vorleserModule = require('../app/modules/sound/vorleser');
 
-    app.get('/module/light',settings.show);
-    app.get('/module/moodLight',settings.show);
-    app.get('/module/vorleser',settings.show);
+    var modulesKeys = ['light/light','light/moodLight','sound/vorleser'];
+    for(var i=0;i<modulesKeys.length;i++){
+        var module = require('../app/modules/'+modulesKeys[i]);
 
-    app.get('/module/light/start',moduleLauncher.getLauncher(lightModule,'/'));
-    app.get('/module/moodLight/start',moduleLauncher.getLauncher(moodLightModule,'/'));
-    app.get('/module/vorleser/start',moduleLauncher.getLauncher(vorleserModule,'/'));
+        app.get('/module/' + modulesKeys[i]+'/start',moduleLauncher.getLauncher(module,'/'));
+        app.get('/module/' + modulesKeys[i]+'/stop',moduleLauncher.getStopper(module,'/'));
+        app.get('/module/' + modulesKeys[i],settings.getShower(module));
+        app.put('/module/' + modulesKeys[i],settings.getEditor(module));
+    }
 
-    app.get('/module/light/stop',moduleLauncher.getStopper(lightModule,'/'));
-    app.get('/module/moodLight/stop',moduleLauncher.getStopper(moodLightModule,'/'));
-    app.get('/module/vorleser/stop',moduleLauncher.getStopper(vorleserModule,'/'));
-
-    app.put('/module/light',settings.edit);
-    app.put('/module/moodLight',settings.edit);
-    app.put('/module/vorleser',settings.edit);
 
     var logs = require('../app/controllers/logs');
     app.get('/logs/:type/:from/:to',logs.all);

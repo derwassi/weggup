@@ -13,8 +13,8 @@ var button1 = new onoff.Gpio(18, 'in', 'both');
 //when no process was running, start light.
 //TODO: manage via configuration, what to launch!
 button1.watch(function(err, value) {
-    var stopped = false;
     var proc;
+    var stopped = false;
     if(sharedResource.light.isProcessRunning()){
         proc = sharedResource.light.getCurrentProcess();
         if(proc) proc.stop();

@@ -9,5 +9,6 @@
         </set>
       </option>
     </inspection_tool>
+    <inspection_tool class="UnnecessaryLabelJS" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

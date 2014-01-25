@@ -1,0 +1,16 @@
+<section data-ng-controller="ModulesController">
+    <h1>Modules</h1>
+
+    <div class="form-horizontal">
+        <div class="control-group" ng-repeat="module in modules">
+            <span class="control-label">{{module.title}}</span>
+
+            <div class="controls">
+                <a href="#!/module/{{module.id}}/?module={{module.id}}" class="btn">Edit</a>
+                <span class="btn-success btn" ng-click="start(module)" ng-hide="module.running">start</span>
+                <span class="btn-danger btn" ng-click="stop(module)" ng-show="module.running">stop</span>
+            </div>
+
+        </div>
+    </div>
+</section>

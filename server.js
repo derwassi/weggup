@@ -14,7 +14,6 @@ var express = require('express'),
 //if test env, load example file
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
     config = require('./config/config'),
-    auth = require('./config/middlewares/authorization'),
     mongoose = require('mongoose');
 
 //Bootstrap db connection

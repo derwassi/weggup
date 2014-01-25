@@ -10,7 +10,8 @@ angular.module('mean.system').controller('HeaderController', ['$scope', 'Global'
     },{
         "title": "Charts",
         "link": "logs"
-    }];
+    },{"title":"Modules","link":"module"}];
+
     
     $scope.isCollapsed = false;
 }]);

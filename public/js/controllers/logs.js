@@ -18,7 +18,7 @@ angular.module('mean.logs').controller('LogsController', ['$scope', '$routeParam
                 steps:true
             }
         }
-    }
+    };
 
     var processData = function(data){
         var d = [];
@@ -54,10 +54,10 @@ angular.module('mean.logs').controller('LogsController', ['$scope', '$routeParam
         angular.forEach($scope.logs,function(v){
             updateLog(v,$scope.from,$scope.to,setGraphs);
         });
-    }
+    };
 
     $scope.change = function(log){
-        if(log.selected && log.data==null){
+        if(log.selected && log.data===null){
            updateLog(log,$scope.from, $scope.to,setGraphs);
         }else{
 

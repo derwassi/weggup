@@ -6,21 +6,21 @@ module.exports = function(grunt) {
             jade: {
                 files: ['app/views/**'],
                 options: {
-                    livereload: true,
-                },
+                    livereload: true
+                }
             },
             js: {
                 files: ['public/js/**', 'app/**/*.js'],
                 tasks: ['jshint'],
                 options: {
-                    livereload: true,
-                },
+                    livereload: true
+                }
             },
             html: {
                 files: ['public/views/**'],
                 options: {
-                    livereload: true,
-                },
+                    livereload: true
+                }
             },
             css: {
                 files: ['public/css/**'],
@@ -34,8 +34,9 @@ module.exports = function(grunt) {
         },
         nodemon: {
             dev: {
-                options: {
-                    file: 'server.js',
+
+                    script: 'server.js',
+                    file:'server.js',
                     args: [],
                     ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
                     watchedExtensions: ['js'],
@@ -45,9 +46,11 @@ module.exports = function(grunt) {
                     env: {
                         PORT: 3000
                     },
-                    cwd: __dirname
-                }
+                    cwd: __dirname,
+                    dump:true
+
             }
+
         },
         concurrent: {
             tasks: ['nodemon', 'watch'],
@@ -86,7 +89,7 @@ module.exports = function(grunt) {
     grunt.option('force', true);
 
     //Default task(s).
-    grunt.registerTask('default', ['jshint', 'concurrent']);
+    grunt.registerTask('default', ['jshint', 'nodemon']);
 
     //Test task.
     grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

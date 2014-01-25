@@ -78,6 +78,7 @@ module.exports = function(app, db) {
             res.status(500).render('500', {
                 error: err.stack
             });
+            return false;
         });
 
         //Assume 404 since no middleware responded

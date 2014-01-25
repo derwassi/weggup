@@ -33,14 +33,6 @@ var _volume = settings.maxVolume;
 var running = false;
 var player = null;
 
-var loadSettings = function(){
-    settingsManager.load(settings,identifier);
-}
-
-var saveSettings = function(s){
-    settingsManager.save(s,identifier,settings);
-
-}
 
 //TODO: position
 var read = function(){
@@ -119,7 +111,14 @@ exports.stop = function(){
 };
 
 
+var loadSettings = function(){
+    settingsManager.load(settings,identifier);
+};
 
+var saveSettings = function(s){
+    settingsManager.save(s,identifier,settings);
+
+};
 
 
 exports.launch = function(){
@@ -130,6 +129,7 @@ exports.getIdentifier = function(){
     return {name:"Vorleser",identifier:identifier};
 };
 
+
 exports.setSettings = function(s){
 
     saveSettings(s);
@@ -139,3 +139,4 @@ exports.setSettings = function(s){
 exports.getSettings = function(){
     return settings;
 };
+
