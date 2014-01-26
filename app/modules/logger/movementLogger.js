@@ -5,7 +5,7 @@
 
 var acc = require('../../hardware/acceleratorAccess');
 var eventEmitter = require('../../services/eventbus').emitter;
-var delta = 0.2;
+var delta = 2;
 var mainThreashold = 1;
 var secondaryThreashold = 0.8;
 var mongoose = require('mongoose'),
@@ -32,7 +32,7 @@ var poll = function(){
         }
         //emit event, when movement is detected from first (but not second motion sensor
         if(main>mainThreashold && secondary<secondaryThreashold){
-            eventEmitter.emit('movement.primary');
+            //eventEmitter.emit('movement.primary');
         }
 
 

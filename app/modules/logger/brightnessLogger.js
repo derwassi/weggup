@@ -3,7 +3,7 @@
  */
 
 var light = require('../../hardware/brightnessAccess');
-var delta = 0.5;
+var delta = 2;
 var mongoose = require('mongoose'),
     Datalog = mongoose.model('Datalog');
 var last = 0;
