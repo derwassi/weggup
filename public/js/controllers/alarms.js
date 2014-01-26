@@ -4,14 +4,14 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
 
     $scope.files = [];
 
-    Files.query(function(f){ $scope.files = f;console.log(f);});
+    Files.query(function(f){ $scope.files = f;});
 
     $scope.global = Global;
     $scope.hardware = null;
     Hardware.query(function(hardware){
         if(hardware.length>0){
             $scope.hardware = hardware[0];
-            console.log($scope.hardware);
+
         }
     });
 
@@ -124,7 +124,6 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
 
 
     $scope.find = function() {
-        console.log('find');
         Alarms.query(function(alarms) {
             $scope.alarms = alarms;
         });

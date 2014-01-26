@@ -6,14 +6,18 @@
 //innerer schmeisst event bei Überhitzung und abkühlung (einschalten/ausschalten von licht!)
 
 var hardwareAccess = require('./hardwareAccess');
+//TODO: use lookup table/correct function
+var map = function(v){
+    return v/10.24;
+};
 
 exports.getOuterTemperature = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(0,'spi');
+    hardwareAccess.getSensor(7,'spi',map);
 };
 
 
 exports.getInnerTemperature = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(1,'spi');
+    hardwareAccess.getSensor(6,'spi',map);
 };

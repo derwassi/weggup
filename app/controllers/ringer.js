@@ -15,7 +15,7 @@ var emitter = events.emitter;
 
 
 var ringers = [];
-//var player = require('./mplayer');
+var player = require('../hardware/soundAccess');
 
 
 /**

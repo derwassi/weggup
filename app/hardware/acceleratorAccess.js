@@ -5,19 +5,21 @@
  * Created by wassi on 19.01.14.
  */
 
-//TODO: zwei sensoren,
 //innerer schmeisst event bei Überhitzung und abkühlung (einschalten/ausschalten von licht!)
 
 var hardwareAccess = require('./hardwareAccess');
 
-//
+//from +100 to -100, (chosen arbitrarily)
+var map = function(v){
+    return (v-(512))/5.12;
+}
 
 exports.getMainMovement = function(){
     //TODO: aus Modell lesen
-    return hardwareAccess.getSensor(3,'spi');
+    return hardwareAccess.getSensor(4,'spi',map);
 };
 
 exports.getSecondaryMovement = function(){
     //TODO: aus Modell lesen
-   return hardwareAccess.getSensor(4,'spi');
+   return hardwareAccess.getSensor(5,'spi',map);
 };

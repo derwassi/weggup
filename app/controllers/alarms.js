@@ -10,13 +10,15 @@ var mongoose = require('mongoose'),
  * Find article by id
  */
 exports.alarm = function(req, res, next, id) {
+
     Alarm.load(id, function(err, alarm) {
          if (err) return next(err);
         if (!alarm) return next(new Error('Failed to load alarm ' + id));
         req.alarm = alarm;
         next();
-        return false;
+
     });
+
 };
 
 /**
@@ -34,7 +36,7 @@ exports.create = function(req, res,next) {
             res.jsonp(alarm);
 
        }
-        next();
+
     });
 
 };
@@ -47,7 +49,6 @@ exports.update = function(req, res,next) {
     alarm = _.extend(alarm, req.body);
     alarm.save(function() {
         res.jsonp(alarm);
-
     });
 
 };
@@ -74,15 +75,16 @@ exports.destroy = function(req, res,next) {
 /**
  * Show an article
  */
-exports.show = function(req, res) {
+exports.show = function(req, res, next) {
     res.jsonp(req.alarm);
+
 
 };
 
 /**
  * List of Alarms
  */
-exports.all = function(req, res) {
+exports.all = function(req, res, next) {
 
     Alarm.find().sort('onlyOnce, dayOfWeek, wakeTime').exec(function(err, alarms) {
         if (err) {
@@ -94,5 +96,6 @@ exports.all = function(req, res) {
         }
 
     });
+
 
 };

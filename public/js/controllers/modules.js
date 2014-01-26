@@ -8,7 +8,7 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
 
     $scope.settings = {};
     var getActiveModule = function () {
-        var cur = {};
+        var cur = null;
         $scope.modules.forEach(function (v) {
 
             if (v.id === $routeParams.module) {
@@ -47,7 +47,7 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
 
         var res = $resource('module/' + activeModule.id, {}, {'put': {method: 'PUT', params: $scope.settings}}).put(
             function () {
-                $location.path('/modules');
+                $location.path('/module');
             }
         );
 

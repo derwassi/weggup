@@ -10,7 +10,9 @@ var settingsManager = require('../../services/settings');
 
 var identifier = "light/moodLight";
 var settings={
-  duration:3600000
+  duration:3600000,
+  randomTime: 10000,
+  minTime:5000
 };
 
 //store initial settings in DB
@@ -35,7 +37,7 @@ var tween = function () {
     tw.tween({
         from: from,
         to: to,
-        duration: Math.random()*10000+5000,//TODO konfigurierbar
+        duration: Math.random()*settings.randomTime-settings.randomTime/2+settings.minTime,
         fps:30,
         //start: function () { console.log('Off I go!'); },
         step: function(){
@@ -75,7 +77,7 @@ var lightControl = {
 };
 
 
-exports.play = function (p, l) {
+exports.start = function (p, l) {
     sharedResources.light.run(lightControl);
 };
 
