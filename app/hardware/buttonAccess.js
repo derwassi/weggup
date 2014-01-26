@@ -7,7 +7,8 @@ var onoff = require('onoff').Gpio;
 var sharedResource = require('../services/sharedResources');
 var light = require('../modules/light/light');
 //TODO: werte aus konfig
-var button1 = new onoff.Gpio(17, 'in', 'both');
+try{
+var button1 = new onoff(17, 'in', 'both');
 
 //stop running services, when pressing button.
 //when no process was running, start light.
@@ -32,3 +33,6 @@ button1.watch(function(err, value) {
 }
 
 });
+}catch(e){
+    console.log('no buttons');
+};

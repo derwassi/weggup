@@ -61,7 +61,7 @@ require('./app/hardware/hardwareAccess');
 require('./app/modules/logger/brightnessLogger').start();
 require('./app/modules/logger/movementLogger').start();
 require('./app/modules/logger/TemperatureLogger').start();
-
+require('./app/hardware/buttonAccess');
 
 //expose app
 exports = module.exports = app;
