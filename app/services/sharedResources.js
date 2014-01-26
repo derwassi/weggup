@@ -10,7 +10,7 @@ var createAccessControl = function () {
     var currentProcess = null;
     return {
         isProcessRunning: function () {
-            return currentProcess && currentProcess.isRunning();
+            return currentProcess && currentProcess.isProcessRunning();
         },
 
         run: function (process) {
