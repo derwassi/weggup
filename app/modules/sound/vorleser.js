@@ -47,6 +47,7 @@ var read = function(){
     //reduce volume after 10 minutes
     player = soundAccess.play(_basedir + settings.dir + '/' + settings.file);
     player.play();
+    player.volume(_volume);
     //read next file, when current file finished
     player.on('exit',function(){
         _index++;
