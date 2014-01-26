@@ -18,13 +18,13 @@ var _ = require('underscore'),
     }
     var channel = 0;
 //TODO: aus model lesen, welche channels es gibt
-var values = [0,0,0,0,0];
-
-adc.poll(0,1000,function(value){values[0] = value; });
-adc.poll(1,1000,function(value){values[1] = value;});
-adc.poll(2,1000,function(value){values[2] = value;});
-adc.poll(3,100,function(value){values[3] = value;});
-adc.poll(4,100,function(value){values[4] = value;});
+var values = [0,0,0,0,0,0,0,0,0];
+//TODO: issue from other access classes
+adc.poll(3,1000,function(value){values[3] = value; });
+adc.poll(4,1000,function(value){values[4] = value;});
+adc.poll(5,1000,function(value){values[5] = value;});
+adc.poll(6,100,function(value){values[6] = value;});
+adc.poll(7,100,function(value){values[7] = value;});
 
 exports.getSensor = function(pin,mode,map){
     if(typeof map == 'undefined') {
