@@ -16,10 +16,10 @@ var map = function(v){
 
 exports.getMainMovement = function(){
     //TODO: aus Modell lesen
-    return hardwareAccess.getSensor(4,'spi',map);
+    return hardwareAccess.getSensor(0,'spi',map);
 };
 
 exports.getSecondaryMovement = function(){
     //TODO: aus Modell lesen
-   return hardwareAccess.getSensor(5,'spi',map);
+   return hardwareAccess.getSensor(1,'spi',map);
 };

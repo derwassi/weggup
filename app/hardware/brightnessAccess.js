@@ -14,6 +14,6 @@ var map = function(v){
 };
 exports.getAmbientBrightness = function(){
     //TODO: aus Modell lesen
-    return hardwareAccess.getSensor(3,'spi',map);
+    return hardwareAccess.getSensor(4,'spi',map);
 };
 
