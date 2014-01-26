@@ -26,7 +26,7 @@ var poll = function(){
         }
 
         poll();
-    },1000);
+    },60000);
 };
 
 exports.start = function(){
