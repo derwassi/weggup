@@ -14,7 +14,30 @@ exports.all = function(req, res) {
             from: new Date(parseInt(req.params.from)),
             to: new Date(parseInt(req.params.to))
     };
-    Datalog.find({created:{$gte: data.from, $lt:data.to},type:data.type}).sort('created').exec(function(err, logs) {
+    Datalog.aggregate([{$match:{created:{$gte: data.from, $lt:data.to},type:data.type}},{$group:{
+            _id: {
+                year       : { $year       : '$created' },
+                month      : { $month      : '$created' },
+                dayOfMonth : { $dayOfMonth : '$created' },
+                hour : {$hour : '$created'},
+                minute: {$minute : '$created'}
+                //second: {$second : '$created'}
+            },
+            dt_sample : { $first : '$created' },
+            val:{$first:'$value'},
+            sum   : { $sum : '$value'},
+            count : { $sum : 1 }
+
+        }},{
+            $project: {
+                _id   : 0,
+                created  : '$dt_sample',
+
+                sum   : 1,
+                count : 1,
+                value   : { $divide: ['$sum', '$count'] }
+            }
+        }]).sort('created').exec(function(err, logs) {
         if (err) {
             res.render('500', {
                 status: 500

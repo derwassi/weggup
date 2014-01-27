@@ -13,11 +13,11 @@ var map = function(v){
 
 exports.getOuterTemperature = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(2,'spi',map);
+    return hardwareAccess.getSensor(2,'spi',map);
 };
 
 
 exports.getInnerTemperature = function(){
     //TODO: aus Modell lesen
-    hardwareAccess.getSensor(3,'spi',map);
+    return hardwareAccess.getSensor(3,'spi',map);
 };
