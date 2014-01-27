@@ -20,32 +20,32 @@ var _ = require('underscore'),
 //TODO: aus model lesen, welche channels es gibt
 var values = [0,0,0,0,0,0,0,0,0];
 
-var avg = [0,0,0,0,0,0,0,0,0];
-var diff= [0,0,0,0,0,0,0,0,0];
-var num = 8;
+var avg = [0,0,0,0,0,0,0,0,0,0,0];
+var diff= [0,0,0,0,0,0,0,0,0,0,0];
+var num = 10;
 var sum = 0;
 var cnt = 0;
-var avg2 = [0,0,0,0,0,0,0,0,0];
-var num2 = 8;
+var avg2 = [0,0,0,0,0,0,0,0,0,0,0];
 var cnt2 = 0;
 var sum2 = 0;
-var diff2 = [0,0,0,0,0,0,0,0,0];
+var diff2 = [0,0,0,0,0,0,0,0,0,0,0];
 //TODO: issue from other access classes
-adc.poll(0,100,function(value){
+adc.poll(0,10,function(value){
     sum-= diff[cnt];
+
     var d = Math.abs(avg[cnt]-avg[(cnt+num-1)%num]);
     diff[cnt] = d;
     sum+=diff[cnt];
     cnt = (cnt+1)%num;
     values[0] = sum/num;
 });
-adc.poll(1,100,function(value){
-    sum-= diff[cnt];
-    var d = Math.abs(avg[cnt]-avg[(cnt+num-1)%num]);
-    diff[cnt] = d;
-    sum+=diff[cnt];
-    cnt = (cnt+1)%num;
-    values[0] = sum/num;
+adc.poll(1,10,function(value){
+    sum2-= diff2[cnt2];
+    var d = Math.abs(avg2[cnt2]-avg2[(cnt2+num-1)%num]);
+    diff2[cnt2] = d;
+    sum2+=diff2[cnt2];
+    cnt2 = (cnt2+1)%num;
+    values[1] = sum2/num;
 });
 adc.poll(2,1000,function(value){values[2] = value;});
 adc.poll(3,1000,function(value){values[3] = value;});
