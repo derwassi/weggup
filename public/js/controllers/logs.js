@@ -52,7 +52,10 @@ angular.module('mean.logs').controller('LogsController', ['$scope', '$routeParam
 
     $scope.changeDate = function(){
         angular.forEach($scope.logs,function(v){
-            updateLog(v,$scope.from,$scope.to,setGraphs);
+            log.data = null;
+            if(log.selected){
+                updateLog(v,$scope.from,$scope.to,setGraphs);
+            }
         });
     };
 
