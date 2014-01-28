@@ -44,13 +44,13 @@ exports.all = function(req, res) {
                 status: 500
             });
         } else {
-            fs.open('logs-'+data.type+'-'+req.params.from+'-'+req.params.to,'w',function(err,fd){
+            /*fs.open('logs-'+data.type+'-'+req.params.from+'-'+req.params.to,'w',function(err,fd){
                 logs.forEach(function(v,k){
                     fs.writeSync(fd, v.created.getFullYear()+'-'+ (v.created.getMonth()+1)+'-'+ v.created.getDate()+' ' + v.created.getHours()+':'+ v.created.getMinutes()+':'+ v.created.getSeconds()+";"+ v.value+"\r\n");
 
                 });
                 fs.close(fd);
-            })
+            })*/
             res.jsonp(logs);
         }
 
