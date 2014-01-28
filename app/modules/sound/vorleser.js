@@ -73,6 +73,7 @@ var reduceVolume=function(){
 
         },settings.fadeOutTime);
         event.emitter.once('movement.primary',function(){
+            console.log('TEST');
             clearTimeout(stopReading);
             _volume = settings.maxVolume;
             player.volume(_volume);
@@ -93,6 +94,7 @@ var stop=function(){
 
 var soundControl = {
     start:function(){
+        _volume = settings.maxVolume;
         read();
         running = true;
     },

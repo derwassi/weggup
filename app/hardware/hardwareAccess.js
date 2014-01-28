@@ -31,7 +31,7 @@ var pollMean = function(pin,num,t){
     }
     adc.poll(pin,t,function(value){
         sum-= diff[cnt];
-
+        avg[cnt]=value;
         var d = Math.abs(avg[cnt]-avg[(cnt+num-1)%num]);
         diff[cnt] = d;
         sum+=diff[cnt];
