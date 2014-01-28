@@ -31,7 +31,7 @@ var _volume = settings.maxVolume;
 
 
 var running = false;
-var player = null;
+var player =  null;
 
 
 //TODO: position
