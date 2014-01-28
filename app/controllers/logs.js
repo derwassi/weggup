@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose');
 var Datalog = mongoose.model('Datalog');
+var fs=require('fs');
 /**
  * List of Alarms
  */
@@ -20,8 +21,8 @@ exports.all = function(req, res) {
                 month      : { $month      : '$created' },
                 dayOfMonth : { $dayOfMonth : '$created' },
                 hour : {$hour : '$created'},
-                minute: {$minute : '$created'}
-                //second: {$second : '$created'}
+                minute: {$minute : '$created'},
+                second: {$second : '$created'}
             },
             dt_sample : { $first : '$created' },
             val:{$first:'$value'},
@@ -43,7 +44,13 @@ exports.all = function(req, res) {
                 status: 500
             });
         } else {
+            fs.open('logs-'+data.type+'-'+req.params.from+'-'+req.params.to,'w',function(err,fd){
+                logs.forEach(function(v,k){
+                    fs.writeSync(fd, v.created.getFullYear()+'-'+ (v.created.getMonth()+1)+'-'+ v.created.getDate()+' ' + v.created.getHours()+':'+ v.created.getMinutes()+':'+ v.created.getSeconds()+";"+ v.value+"\r\n");
 
+                });
+                fs.close(fd);
+            })
             res.jsonp(logs);
         }
 
