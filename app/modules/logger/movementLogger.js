@@ -33,7 +33,7 @@ var poll = function(){
         }
         //emit event, when movement is detected from first (but not second motion sensor
         if(main>mainThreashold  && logged){
-            //eventEmitter.emit('movement.primary');
+            eventEmitter.emit('movement.primary');
             console.log(new Date(),'EVENT');
         }
 
