@@ -9,6 +9,7 @@
 var _ = require('underscore');
 
 var spawn = require('child_process').spawn;
+var exec = require('child_process').exec;
 
 
 exports.play = function (soundFile, loop, volume) {
@@ -53,7 +54,10 @@ exports.play = function (soundFile, loop, volume) {
     args.push(soundFile);
 
 
-    sound = spawn('mplayer', args);
+    sound = spawn('mplayer', args,function(){});
+    sound.stdout.on('data', function (data) {  });
+    sound.stderr.on('data', function (data) {  });
+
     player.pause();
 
 
