@@ -37,6 +37,8 @@ var player =  null;
 //TODO: position
 var read = function(){
     var files = fs.readdirSync(_basedir + settings.dir);
+    files.sort();
+    console.log(files);
     _index = files.indexOf(settings.file);
     if(_index==-1){
         settings.file = files[0];
