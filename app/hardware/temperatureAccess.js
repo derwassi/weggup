@@ -23,12 +23,14 @@ var map = function(v){
         temp = b*tn/(b+Math.log((r_akt/r2))/Math.LN10*tn);
         temp = temp - 273.15; //Ergebnis in Grad Celsius umwandeln
         ergebnis =temp;
+    console.log(ergebnis);
         return ergebnis;
 
 };
 
 exports.getOuterTemperature = function(){
     //TODO: aus Modell lesen
+
     return hardwareAccess.getSensor(5,'spi',map);
 };
 
