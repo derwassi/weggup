@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 
-
+//obsolete, makes no sense inmodel, but useful for reference
 
 
 /**

@@ -44,6 +44,10 @@ var AlarmSchema = new Schema({
         default: []
 
     },
+    sound: {
+        type:String,
+        default: ''
+    },
     useLight:{
       type:Boolean,
         default:true
@@ -52,6 +56,7 @@ var AlarmSchema = new Schema({
         type:Array,
         default: [{color:'#000',position:0},{color:'#fff',position:1}]
     },
+
     useAmbientSound:{
       type:Boolean,
         default:true
@@ -59,6 +64,14 @@ var AlarmSchema = new Schema({
     ambientSounds:{
         type:Array,
         default: []
+    },
+    ambientDuration:{
+        type:Number,
+        default:30
+    },
+    allowedWakeDuration:{
+        type:Number,
+        default:30
     }
 
 

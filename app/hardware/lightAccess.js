@@ -7,28 +7,19 @@
 var Hardware = require('mongoose').model('Hardware');
 var hardware = {};
 
+var map=function(v,fromLow,fromHigh, toLow, toHigh){
 
-
-exports.updateHardware = function () {
-    Hardware.find().exec(function (err, hardwares) {
-        if (hardwares.length > 0) {
-            hardware = hardwares[0];
-        }
-    });
 };
-
-exports.updateHardware();
-
 
 exports.setColor = function (r,g,b) {
     //console.log('test',model);
-    hardwareAccess.setActuator(r, hardware.actuators.red.pin, hardware.actuators.red.mode, function (v) {
+    hardwareAccess.setActuator(r, 22, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
     });
-    hardwareAccess.setActuator(g, hardware.actuators.green.pin, hardware.actuators.green.mode, function (v) {
+    hardwareAccess.setActuator(g, 23, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
     });
-    hardwareAccess.setActuator(b, hardware.actuators.blue.pin, hardware.actuators.blue.mode, function (v) {
+    hardwareAccess.setActuator(b, 24, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
     });
 };
