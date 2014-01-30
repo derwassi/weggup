@@ -40,7 +40,7 @@ module.exports = function(app) {
 
 
 
-    app.get('/ring',ringer.ring);
+    //app.get('/ring',ringer.ring);
     //Finish with setting up the articleId param
 
 
