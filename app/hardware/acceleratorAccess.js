@@ -11,7 +11,7 @@ var hardwareAccess = require('./hardwareAccess');
 
 //from +100 to -100, (chosen arbitrarily)
 var map = function(v){
-    return (v-(512))/5.12;
+   return v;
 }
 
 exports.getMainMovement = function(){
