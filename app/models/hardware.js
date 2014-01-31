@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 /**
  * Article Schema
  */
-var HardwareSchema = new Schema({
+/*var HardwareSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
@@ -118,16 +118,10 @@ var HardwareSchema = new Schema({
 
     }
 
-});
+});*/
 
 
 /**
  * Statics
  */
-HardwareSchema.statics.load = function(id, cb) {
-    this.findOne({
-        _id: id
-    }).exec(cb);
-};
 
-mongoose.model('Hardware', HardwareSchema);

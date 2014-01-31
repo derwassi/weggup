@@ -4,8 +4,7 @@
 
 
     var hardwareAccess = require('./hardwareAccess');
-var Hardware = require('mongoose').model('Hardware');
-var hardware = {};
+
 var temperatureAccess = require('./temperatureAccess');
 
 var map=function(v,fromLow,fromHigh, toLow, toHigh){

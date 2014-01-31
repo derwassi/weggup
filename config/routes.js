@@ -13,10 +13,6 @@ module.exports = function(app) {
     app.del('/alarms/:alarmId', ringer.update, alarms.destroy);
     app.param('alarmId', alarms.alarm);
 
-    var hardware = require('../app/controllers/hardware');
-    app.get('/hardware',hardware.all);
-    app.put('/hardware/:hardwareId',hardware.update);
-    app.param('hardwareId',hardware.hardware);
 
     var files = require('../app/controllers/files');
     app.get('/files',files.all);
