@@ -27,7 +27,7 @@ io.sockets.on('connection',function(socket){
     socket.on('set',function(actuator){
         /*if(typeof hardware.actuators[actuator.name] != 'undefined'){
             //console.log(hardware.actuators[actuator.name])
-            var value=hardwareAccess.setActuator(actuator.value,hardware.actuators[actuator.name].pin,hardware.actuators[actuator.name].mode,function(v){return map(v,0,255,0,1);});//TODO: map from model!
+            var value=hardwareAccess.setActuator(actuator.valtotally removed hardware modelue,hardware.actuators[actuator.name].pin,hardware.actuators[actuator.name].mode,function(v){return map(v,0,255,0,1);});//TODO: map from model!
         }*/
     });
     socket.on('play', function(audio){

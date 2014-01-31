@@ -15,6 +15,7 @@ var map=function(v,fromLow,fromHigh, toLow, toHigh){
 
 
 exports.setColor = function (r,g,b) {
+    //console.log(r,g,b);
     //console.log('test',model);
     hardwareAccess.setActuator(r, 27, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
@@ -22,7 +23,7 @@ exports.setColor = function (r,g,b) {
     hardwareAccess.setActuator(g, 22, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
     });
-    hardwareAccess.setActuator(b, 28, 'pwm', function (v) {
+    hardwareAccess.setActuator(b, 18, 'pwm', function (v) {
         return map(v, 0, 255, 0, 1);
     });
 };
