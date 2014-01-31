@@ -32,7 +32,7 @@ var HardwareSchema = new Schema({
             },
             pin:{
                 type:String,
-                default:22
+                default:27
             }
         },
         green: {
@@ -42,7 +42,7 @@ var HardwareSchema = new Schema({
             },
             pin:{
                 type:String,
-                default:23
+                default:22
             }
 
         },
@@ -53,9 +53,13 @@ var HardwareSchema = new Schema({
             },
             pin:{
                 type:String,
-                default:24
+                default:18
             }
 
+        },
+        fan: {
+            mode:{default:'pwm'},
+            pin:23
         }
     },
     sensors: {

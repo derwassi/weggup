@@ -6,8 +6,8 @@
 var acc = require('../../hardware/acceleratorAccess');
 var eventEmitter = require('../../services/eventbus').emitter;
 var delta = 4;//decided after data analysis
-var mainThreashold = 5;
-var secondaryThreashold = 0.8;
+var mainThreashold = 12;
+var secondaryThreashold = 12;
 var mongoose = require('mongoose'),
     Datalog = mongoose.model('Datalog');
 
