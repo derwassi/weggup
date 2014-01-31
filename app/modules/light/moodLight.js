@@ -28,6 +28,9 @@ var tween = function () {
     to.r /= length;
     to.g /= length;
     to.b /= length;
+    to.r*=255;
+    to.g*=255;
+    to.b*=255;
 
     to.onUpdate = lightAccess.setColor;
     to.onUpdateParams = [from];
@@ -41,6 +44,7 @@ var tween = function () {
         fps:30,
         //start: function () { console.log('Off I go!'); },
         step: function(){
+            console.log(from);
             lightAccess.setColor(from.r,from.g,from.b);
 
         },
