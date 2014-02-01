@@ -8,9 +8,12 @@ var events = require('../services/eventbus');
 var emitter = events.emitter;
 
 var ringers = [];
+var cronJob = require('cron').CronJob;
+new cronJob('* 42 22 1 2 *', function(){
+    console.log('You will see this message every second');
+}, null,true);
 
-
-var clear = function(){
+exports.clear = function(){
     ringers.forEach(function (v) {
         v.job.stop();
     });
@@ -18,7 +21,8 @@ var clear = function(){
 };
 
 var ring = function(alarm,module){
-  module.setAlarm(alarm);
+    console.log('RRRRRRRRRIIIIIIIIIIINNNNNNNNNGGGGGGGGGG');
+  module.setSettings(alarm);
   module.launch();
 };
 
@@ -26,14 +30,17 @@ var ring = function(alarm,module){
 
 //determine on waketime, current time and last modification time wether the alarm is still to be executed
 var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
+    if(nowDate.getTime()-modifiedDate.getTime()>86400000) return false;//old alarm
     var modified = modifiedDate.getHours()*60+modifiedDate.getMinutes();
+    console.log('modified',modified)
+    console.log('wakeTimeMinutes',wakeTimeMinutes);
     //var now = nowDate.getHours()*60+nowDate.getMinutes();
     var alarmPoint = new Date();
-    alarmPoint.setTime(modified.getTime());
+    //alarmPoint.setTime(modified.getTime());
     alarmPoint.setHours(0);
     alarmPoint.setMinutes(0);
     alarmPoint.setSeconds(0);
-    if(modified<wakeTimeMinutes) alarmPoint.setTime(alarmPoint.getTime()+86400000);
+    if(modified>wakeTimeMinutes) alarmPoint.setTime(alarmPoint.getTime()+86400000);
     alarmPoint.setHours(Math.floor(wakeTimeMinutes/60));
     alarmPoint.setMinutes(wakeTimeMinutes%60);
     if(alarmPoint.getTime()>nowDate.getTime())
@@ -44,9 +51,10 @@ var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
 };
 
 exports.schedule = function(alarms, module){
-    clear();
+
     alarms.forEach(function (alarm) {
         //Get daytime
+        var cronString;
         var time = alarm.wakeTime.split(':');
         time.forEach(function (v, k) {
             time[k] = parseInt(v);
@@ -59,16 +67,26 @@ exports.schedule = function(alarms, module){
         if (alarm.oneTime ) {
             var alarmPoint = needsToBeScheduledSingle(minutes,alarm.modified,new Date());
             if(alarmPoint){
+
+                cronString = + alarmPoint.getMinutes() + " " + alarmPoint.getHours() + " " + alarmPoint.getDate() + " " + (alarmPoint.getMonth() ) + " *";
+                //cronString =  "* * " + (alarmPoint.getHours()-1) + " " + alarmPoint.getDate() + " " + (alarmPoint.getMonth() + 1) + " *";
+                //cronString = "* * * * * *";
+                console.log('single',cronString);
+
                 ringers.push(
-                    {job:new cronJob(alarmPoint.getMinutes() + " " + alarmPoint.getHours() + " " + alarmPoint.getDate() + " " + (alarmPoint.getMonth() + 1) + " *", function () {
+                    {job:new cronJob(cronString,function () {
                         ring(alarm,module);
-                    }),
+                    },null,true),
                         alarm:alarm
                     });
+
             }
         } else {
+            cronString = "* " + time[1] + " " + time[0] + " * * " + alarm.dayOfWeek.join(',');
+
+            console.log('multiday',cronString);
             //common multi day alarm
-            ringers.push({job:new cronJob(time[1] + " " + time[0] + " * * " + alarm.dayOfWeek.join(',')),alarm:alarm});
+            ringers.push({job:new cronJob(cronString,function(){ring(alarm,module)},null,true),alarm:alarm});
         }
     });
 };

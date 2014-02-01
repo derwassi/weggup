@@ -1,6 +1,13 @@
 <section data-ng-controller="AlarmsController" data-ng-init="findOne()">
 	<form class="form-horizontal" data-ng-submit="update(alarm,true)">
         <div class="control-group">
+            <label class="control-label" for="alarmActive">Active</label>
+            <div class="controls">
+                <input type="checkbox" data-ng-model="alarm.active" id="alarmActive">
+
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="title">Title</label>
             <div class="controls">
                 <input type="text" data-ng-model="alarm.title" id="title" placeholder="Title" required>
@@ -12,13 +19,12 @@
                 <input type="time" data-ng-model="alarm.wakeTime" id="wakeTime" placeholder="00:00" required>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="snoozeTime">snoozeTime</label>
+        <div class="control-group" >
+            <label class="control-label" for="allowedPriorTime">Allowed time prior to Waketime</label>
             <div class="controls">
-                <input type="time" data-ng-model="alarm.snoozeTime" id="snoozeTime" placeholder="00:00" required>
+                <input type="time" data-ng-model="alarm.allowedPriorTime" id="allowedPriorTime" placeholder="00:30" >
             </div>
         </div>
-
 
         <div class="control-group">
             <label class="control-label" for="oneTime">Single alarm</label>
@@ -27,8 +33,6 @@
 
             </div>
         </div>
-
-
 
         <div class="control-group" data-ng-show="!alarm.oneTime">
             <div class="controls">
@@ -53,31 +57,23 @@
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="useLight">useLight</label>
-            <div class="controls">
-                <input type="checkbox" data-ng-model="alarm.useLight" id="useLight">
 
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="useAmbientSound">Use Ambient Sound</label>
-            <div class="controls">
-                <input type="checkbox" data-ng-model="alarm.useAmbientSound" id="useAmbientSound">
 
+
+
+        <div class="control-group" >
+            <label class="control-label" for="duration">Waking duration</label>
+            <div class="controls">
+                <input type="time" data-ng-model="alarm.ambientDuration" id="duration" placeholder="00:30" >
             </div>
         </div>
 
-        <div class="control-group" data-ng-show="alarm.useLight || alam.useAmbientSound">
-            <label class="control-label" for="duration">Light/Sound duration</label>
-            <div class="controls">
-                <input type="time" data-ng-model="alarm.duration" id="duration" placeholder="00:30" >
-            </div>
-        </div>
-        <div class="button btn" data-ng-click="playLight(alarm.gradient)">Play</div>
-        <div class="gradientpicker" data-ng-show="alarm.useLight" gradient-picker/>
+        <div class="button btn" data-ng-click="play()">Play</div>
+        <div class="button btn" data-ng-click="stop()">Stop</div>
+        <div class="gradientplayercontrols"><select class="speed" ng-model="speed"><option value="1">original</option><option value="2">x2</option><option value="4">x4</option><option value="8">x8</option><option value="16">x16</option></select></div>
+        <div class="gradientpicker" gradient-picker/>
 
-        <div class="soundpicker" data-ng-show="alarm.useAmbientSound" sound-picker/>
+        <div class="soundpicker" sound-picker/>
 
 		<div class="control-group">
 			<div class="controls">

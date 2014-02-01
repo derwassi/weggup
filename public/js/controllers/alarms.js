@@ -1,4 +1,4 @@
-angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','Hardware','filterFilter', 'Files', function ($scope, $routeParams, $location, Global, Alarms,Hardware, filterFilter,Files) {
+angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeParams', '$location', 'Global', 'Alarms','filterFilter', 'Files', function ($scope, $routeParams, $location, Global, Alarms, filterFilter,Files) {
     //TODO: angular service
     var socket = io.connect(window.location.protocol + '//' + window.location.hostname + ":3010");
 
@@ -7,14 +7,6 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     Files.query(function(f){ $scope.files = f;});
 
     $scope.global = Global;
-    $scope.hardware = null;
-    Hardware.query(function(hardware){
-        if(hardware.length>0){
-            $scope.hardware = hardware[0];
-
-        }
-    });
-
 
     $scope.days = [
         { name: 'Monday', value:0,   selected: false },
@@ -99,23 +91,37 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
         }
     };
 
-    $scope.playColorPreview = function(files){
+    /*$scope.playColorPreview = function(files){
         socket.emit('playColorPreview',files);
-    };
+    };*/
 
 
     $scope.playAudio = function(audio){
-        socket.emit('play',audio);
+
+        socket.emit('playAudio',{file:'./moodsounds/'+audio.file,volume:audio.volume});
     };
     $scope.stopAudio = function(audio){
-        socket.emit('stop',audio);
+        socket.emit('stopAudio',audio);
     };
 
-    $scope.playAudioPreview = function(files){
-        socket.emit('playPreview',files);
+    $scope.play = function(){
+        var d = {audio:{list:[]},light:{}};
+        $scope.alarm.ambientSounds.forEach(function(v,k){
+
+            d.audio.list.push({file:'./moodsounds/'+ v.file,
+                from: v.from,
+            to: v.to,
+            repeat: v.repeat,
+            volume: v.volume}) ;
+        });
+        d.light={list:$scope.alarm.gradient};
+        d.duration = $scope.alarm.ambientDuration;
+        d.speed=$scope.speed;
+        console.log(d);
+        socket.emit('play',d);
     };
-    $scope.stopAudioPreview = function(files){
-        socket.emit('stopPreview',files);
+    $scope.stop = function(){
+        socket.emit('stop');
     };
 
 

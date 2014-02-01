@@ -19,6 +19,10 @@ var AlarmSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    active:{
+        type:Boolean,
+        default: true
+    },
     title:{
         type: String,
         trim:true
@@ -27,51 +31,36 @@ var AlarmSchema = new Schema({
         type:Boolean,
         default:true
     },
-    wakeTime: {
+    wakeTime: {//light alarm finishes at this time
         type: String,
         default:Date.now
 
 
     },
-    snoozeTime: {
-        type: String,
-        default:'00:05'
 
-
-    },
     dayOfWeek: {
         type: Array,
         default: []
 
     },
-    sound: {
-        type:String,
-        default: ''
-    },
-    useLight:{
-      type:Boolean,
-        default:true
-    },
+
+
     gradient:{
         type:Array,
         default: [{color:'#000',position:0},{color:'#fff',position:1}]
     },
 
-    useAmbientSound:{
-      type:Boolean,
-        default:true
-    },
     ambientSounds:{
         type:Array,
         default: []
     },
     ambientDuration:{
-        type:Number,
-        default:30
+        type:String,
+        default:'30:00'
     },
-    allowedWakeDuration:{
-        type:Number,
-        default:30
+    allowedPriorTime:{
+        type:String,
+        default:'00:30'
     }
 
 

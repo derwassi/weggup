@@ -19,14 +19,14 @@ var alarmModule = require('../modules/soundAndLight/alarmModule');
 //TODO: alarme richtig terminieren
 
 
-exports.update = function (req, res, next) {
+exports.update = function (req, res) {
 
     Alarm.find().exec(function (err, alarms) {
         alarmScheduler.clear();
         alarmScheduler.schedule(alarms,alarmModule);
 
     });
-    next();
+
 
 };
 

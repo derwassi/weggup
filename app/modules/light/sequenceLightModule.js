@@ -12,8 +12,13 @@ var identifier = 'light/sequenceLightModule';
 
 var pos = 0;
 
-var points = [];
-var length = 0;
+var settings={
+    list:[],
+    length:'20:00',
+    speed:1
+}
+
+var length;
 var tw = null;
 var convertTimeToMillis = function (time) {
     var t = time.split(':');
@@ -22,11 +27,23 @@ var convertTimeToMillis = function (time) {
 
 function hexToRgb(hex) {
     var result = /^#?([a-f\d]{1,2})([a-f\d]{1,2})([a-f\d]{1,2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
+    if(!result){
+        result = /^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/i.exec(hex);
+        if(result){
+            return {
+                r: parseInt(result[1]),
+                g: parseInt(result[2]),
+                b: parseInt(result[3])
+            };
+        }
+    }else{
+       return {
+           r: parseInt(result[1], 16),
+           g: parseInt(result[2], 16),
+           b: parseInt(result[3], 16)
+       };
+    }
+    return null;
 }
 
 //tweening between gradient points
@@ -34,17 +51,17 @@ var tween = function () {
 
     var from = {};
     if (pos === 0) {
-        from = {position: 0, color: hexToRgb(points[0].color)};
+        from = {position: 0, color: hexToRgb(settings.list[0].color)};
     } else {
-        from = {position: points[pos - 1].position * length, color: hexToRgb(points[pos - 1].color)};
+        from = {position: settings.list[pos - 1].position * length, color: hexToRgb(settings.list[pos - 1].color)};
     }
     var to = {};
-    if (pos == points.length) {
-        to = {position: length, color: hexToRgb(points[points.length - 1].color)};
+    if (pos == settings.list.length) {
+        to = {position: length, color: hexToRgb(settings.list[settings.list.length - 1].color)};
     } else {
-        to = {position: points[pos].position * length, color: hexToRgb(points[pos].color)};
+        to = {position: settings.list[pos].position * length, color: hexToRgb(settings.list[pos].color)};
     }
-    to.color.r = 20;
+    //to.color.r = 20;
 
     to.onUpdate = function(){
         lightAccess.setColor(from.color.r,from.color.g,from.color.b);
@@ -52,9 +69,7 @@ var tween = function () {
     to.onUpdateParams = [from];
     to.useFrames = true;
 
-
     pos++;
-
     tw.tween({
         from: from.color,
         to: to.color,
@@ -64,9 +79,8 @@ var tween = function () {
         step: function(){
             lightAccess.setColor(from.color.r,from.color.g,from.color.b);
         },
-        callback: function () {
-            //console.log('complete');
-            if (pos <= points.length) {
+        finish: function () {
+            if (pos <= settings.list.length) {
                 tween();
             }
         }
@@ -79,13 +93,11 @@ var tween = function () {
 //access restriction for light
 var lightControl = {
     start: function(){
-        exports.stop();
-
-
-        length = convertTimeToMillis(l);
+        length = convertTimeToMillis(settings.duration);
         pos = 0;
 
-        if (points && points.length > 0) {
+
+        if (settings.list && settings.list.length > 0) {
             tw = new shifty();
 
             tween();
@@ -112,13 +124,12 @@ exports.stop = function () {
 };
 
 exports.setSettings = function(o){
-    points = o.points;
-    length = o.length;
+    settings = o;
 
 };
 
 exports.getSettings = function(){
-  return {points:points,length:length};
+  return settings;
 };
 
 exports.getIdentifier = function(){

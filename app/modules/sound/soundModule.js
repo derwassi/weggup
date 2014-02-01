@@ -3,9 +3,7 @@
  */
 
 var _ = require('underscore');
-var soundAccess = require('./../../hardware/soundAccess');
 var identifier = 'sound/soundModule';
-var settingsManager = require('../../services/settings');
 var soundAccess = require('../../hardware/soundAccess');
 var sharedResources = require('../../services/sharedResources');
 
@@ -13,13 +11,14 @@ var settings = {
     file:'',
     volume:100
 }
-//store initial settings in DB
-settingsManager.init(settings,identifier);
-var player
+
+var player;
 
 var play = function(){
-    player = soundAccess.play('./' + v.file, v.volume);
+    console.log(settings);
+    player = soundAccess.play('./' + settings.file,false,settings.volume);
     player.play();
+
     player.on('exit',function(){soundControl.stop();});
 };
 
@@ -55,10 +54,10 @@ exports.stop = function () {
 };
 
 exports.getSettings = function(){
-   return settings;//TODO
+   return settings;
 };
 exports.setSettings = function(s){
-   settingsManager.save(s,identifier,settings);
+   settings = s;
 };
 
 exports.getIdentifier = function(){

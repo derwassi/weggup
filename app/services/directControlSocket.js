@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 //var hardwareAccess = require('../hardware/hardwareAccess');
 
 var soundMixer = require('../modules/sound/soundMixerModule');
+var lightsequence = require('../modules/light/sequenceLightModule');
 var soundModule = require('../modules/sound/soundModule');
 var lightMixer = require('../modules/light/sequenceLightModule');
 var previewLightModule = require('../modules/light/lightPreviewModule');
@@ -23,17 +24,23 @@ io.sockets.on('connection',function(socket){
         previewLightModule.setSettings(color);
         previewLightModule.launch();
     });
-    socket.on('play', function(audio){
+    socket.on('playAudio', function(audio){
         soundModule.setSettings(audio);
         soundModule.launch();
     });
-    socket.on('stop', function(audio){
+    socket.on('stopAudio', function(audio){
         soundModule.stop();
+  });
+
+
+    socket.on('play', function(list){
+        console.log(list);
+        soundMixer.setSettings({list:list.audio.list,duration:list.duration,speed:list.speed});
+        soundMixer.launch();
+        lightsequence.setSettings({list:list.light.list,duration:list.duration,speed:list.speed});
+        lightsequence.launch();
     });
-    socket.on('playPreview', function(list){
-       soundMixer.play(list);
-    });
-    socket.on('stopPreview', function(){
+    socket.on('stop', function(){
         soundMixer.stop();
     });
 

@@ -7,10 +7,10 @@ module.exports = function(app) {
     var ringer = require('../app/controllers/ringer');
 
     app.get('/alarms', alarms.all);
-    app.post('/alarms',  alarms.create);
+    app.post('/alarms',  alarms.create,ringer.update);
     app.get('/alarms/:alarmId', alarms.show);
-    app.put('/alarms/:alarmId',ringer.update, alarms.update );
-    app.del('/alarms/:alarmId', ringer.update, alarms.destroy);
+    app.put('/alarms/:alarmId',alarms.update,ringer.update );
+    app.del('/alarms/:alarmId', alarms.destroy,ringer.update);
     app.param('alarmId', alarms.alarm);
 
 

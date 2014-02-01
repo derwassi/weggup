@@ -4,7 +4,9 @@
 
 var _ = require('underscore');
 var soundAccess = require('./../../hardware/soundAccess');
+var sharedResources = require('../../services/sharedResources');
 var identifier = 'sound/soundMixerModule';
+
 
 var timeOuts = [];
 var instances = [];
@@ -15,28 +17,34 @@ var convertTimeToMillis = function(time){
     return ((parseInt(t[0])*60+parseInt(t[1]))*1000);
 };
 
-
-var list = [];
-var length = 1;
+var settings={
+    list:[],
+    length:'20:00',
+    speed:1
+};
 var start = 0;
 
 var play = function(){
-    if(!start) start='0:0';
-    start = convertTimeToMillis(start)-100;//-100 ms  to ensure start of first sound!
-    exports.stop();
-    if(!list){
-        list = [];
-    }
-    list.forEach(function(v){
+    if(!settings.length) settings.length = '01:00';
 
-        if(!v.from){v.from='0:0';}
-        if(!v.to){v.to = '0:0';}
-        var from = convertTimeToMillis(v.from);
-        var to = convertTimeToMillis(v.to);
+    if(!settings.start) settings.start = 0;
+    if(!settings.speed) settings.speed = 1
+
+    var duration = convertTimeToMillis(settings.length)/settings.speed;
+    settings.start -=100;//-100 ms  to ensure start of first sound!
+
+    if(!settings.list){
+        settings.list = [];
+    }
+    settings.list.forEach(function(v){
+
+
+        var from = (parseFloat(v.from)/100)*duration;
+        var to = parseFloat(v.to)/100*duration;
         if(to>start){
             to=to-start;
             from = Math.max(from-start,0);
-            var player = soundAccess.play('./moodsounds/' + v.file, v.repeat, v.volume);
+            var player = soundAccess.play(v.file, v.repeat, v.volume);
             instances.push(player);
             timeOuts.push(setTimeout(function(){
                 player.play();
@@ -76,8 +84,8 @@ var soundControl = {
 
 
 exports.launch = function () {
+    sharedResources.sound.run(soundControl);
 
-    soundControl.play(l);
 };
 
 exports.stop = function () {
@@ -85,11 +93,10 @@ exports.stop = function () {
 };
 
 exports.getSettings = function(){
-   return {list:'',duration:length};//TODO
+   return settings
 };
 exports.setSettings = function(s){
-   list = s.list;//TODO
-   length = s.duration;
+   settings=s;
 };
 
 exports.getIdentifier = function(){

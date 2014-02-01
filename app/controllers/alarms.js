@@ -34,6 +34,7 @@ exports.create = function(req, res,next) {
             });
         } else {
             res.jsonp(alarm);
+            next();
 
        }
 
@@ -49,6 +50,7 @@ exports.update = function(req, res,next) {
     alarm = _.extend(alarm, req.body);
     alarm.save(function() {
         res.jsonp(alarm);
+        next();
     });
 
 };

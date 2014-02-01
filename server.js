@@ -5,6 +5,8 @@ var express = require('express'),
     fs = require('fs'),
     logger = require('mean-logger');
 
+
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -15,6 +17,7 @@ var express = require('express'),
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
     config = require('./config/config'),
     mongoose = require('mongoose');
+
 
 //Bootstrap db connection
 var db = mongoose.connect(config.db);
@@ -62,6 +65,21 @@ require('./app/dataLogger/brightnessLogger').start();
 require('./app/dataLogger/movementLogger').start();
 require('./app/dataLogger/TemperatureLogger').start();
 require('./app/hardware/buttonAccess');
+
+
+
+
+
+
+Alarm = mongoose.model('Alarm');
+var alarmScheduler = require('./app/services/alarmScheduler');
+var alarmModule = require('./app/modules/soundAndLight/alarmModule');
+
+    Alarm.find().exec(function (err, alarms) {
+        alarmScheduler.clear();
+        alarmScheduler.schedule(alarms,alarmModule);
+
+    });
 
 //expose app
 exports = module.exports = app;
