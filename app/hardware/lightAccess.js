@@ -45,10 +45,12 @@ var map=function(v){
 var overheatCheck = function(){
     var t =temperatureAccess.getInnerTemperature();
     var oldMultiplier = multiplier;
-    if(t>45){
+    if(t>40){
         multiplier = 0;
-    }else if(t>35){
+    }else if(t>33){
         multiplier = 0.5;
+    }else if(t>27){
+        multiplier = 0.99;
     }else{
         multiplier = 1;
     }

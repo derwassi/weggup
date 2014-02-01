@@ -55,7 +55,7 @@ describe("Modules ", function () {
         clock.restore();
     });
 
-    it('should reduce light to 50%, when temperature rises above 35°C', function () {
+    it('should reduce light to 50%, when temperature rises above 33°C', function () {
         lightAccess.setColor(255, 255, 255);
         var col = copyObject(lastCall);
         temperature = 37;
@@ -69,12 +69,12 @@ describe("Modules ", function () {
 
 
     });
-    it('should raise light to 100%, when temperature sinks below 35°C', function () {
-        temperature = 34;
+    it('should raise light to 100%, when temperature sinks below 33°C', function () {
+        temperature = 25;
         clock.tick(1100);
         lightAccess.setColor(255, 255, 255);
         var col = copyObject(lastCall);
-        temperature += 3;
+        temperature += 12;
         clock.tick(3000);
         cycleObject(lastCall, function (key) {
             if (key != '23') {//only rgb pins
@@ -82,7 +82,7 @@ describe("Modules ", function () {
             }
         });
 
-        temperature -= 3;
+        temperature -= 12;
         clock.tick(1100);
         cycleObject(lastCall, function (key) {
             if (key != '23') {//only rgb pins
@@ -92,9 +92,9 @@ describe("Modules ", function () {
 
 
     });
-    it('should turn off light, when temperature rises above 45°C', function () {
+    it('should turn off light, when temperature rises above 40°C', function () {
         lightAccess.setColor(255, 255, 255);
-        temperature = 47;
+        temperature = 42;
         clock.tick(3000);
 
         cycleObject(lastCall, function (key) {
@@ -103,13 +103,13 @@ describe("Modules ", function () {
             }
         });
     });
-    it('should raise light to 50%, when temperature sinks below 45°C', function () {
-        temperature = 34;
+    it('should raise light to 50%, when temperature sinks below 40°C', function () {
+        temperature = 25;
         clock.tick(1100);
         lightAccess.setColor(255, 255, 255);
         var col = copyObject(lastCall);
 
-        temperature += 13;
+        temperature += 16;
         clock.tick(3000);
         cycleObject(lastCall, function (key) {
             if (key != '23') {//only rgb pins
@@ -117,14 +117,14 @@ describe("Modules ", function () {
             }
         });
 
-        temperature -= 10;
+        temperature -= 5;
         clock.tick(1100);
         cycleObject(lastCall, function (key) {
             if (key != '23') {//only rgb pins
                 lastCall[key].should.be.approximately(col[key] / 2, 0.01);
             }
         });
-        temperature -= 3;
+        temperature -= 11;
         clock.tick(1100);
         cycleObject(lastCall, function (key) {
             if (key != '23') {//only rgb pins
@@ -134,15 +134,15 @@ describe("Modules ", function () {
 
     });
     it('should turn on the fan, when temperature rises above 35°C', function () {
-        temperature = 34;
+        temperature = 25;
         clock.tick(1100);
         lastCall['23'].should.equal(0);
-        temperature += 13;
+        temperature += 3;
         clock.tick(1100);
         lastCall['23'].should.equal(1);
     });
     it('should turn on the fan, when temperature rises above 35°C', function () {
-        temperature = 34;
+        temperature = 25;
         clock.tick(1100);
         lastCall['23'].should.equal(0);
         temperature += 3;

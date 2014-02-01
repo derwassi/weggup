@@ -5,7 +5,7 @@ var _ = require('underscore'),
 if(!fs.existsSync('/dev/pi-blaster')){
     piblaster.setPwm = function(pin,value){
         console.log('pi-blaster:',pin,value);
-    }
+    };
 }
 try {
     var adc = new spi();

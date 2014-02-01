@@ -48,7 +48,7 @@ var tween = function () {
             lightAccess.setColor(from.r,from.g,from.b);
 
         },
-        callback: function () {
+        finish: function () {
             tween();
         }
     });

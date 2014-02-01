@@ -39,11 +39,11 @@ exports.sensors = {
     },
     temperatureInner:{
         type:'spi',
-        pin:5
+        pin:6
     },
     temperatureOuter:{
         type:'spi',
-        pin:6
+        pin:5
     },
     button:{
         type:'digital',
