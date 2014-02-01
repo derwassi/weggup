@@ -8,7 +8,6 @@ var sharedResources = require('./../../services/sharedResources');
 
 var lightAccess = require('./../../hardware/lightAccess');
 
-var settingsManager = require('../../services/settings');
 var identifier = "light/lightPreviewModule";
 var running = false;
 
@@ -21,7 +20,7 @@ var settings = {
     b:255
 };
 //store initial settings in DB
-settingsManager.init(settings,identifier);
+//settingsManager.init(settings,identifier);
 
 var timeOut;
 
@@ -64,15 +63,15 @@ exports.getIdentifier = function(){
     settingsManager.load(settings,identifier);
 };*/
 
-var saveSettings = function(s){
-    settingsManager.save(s,identifier,settings);
+var saveSettings = function(s,callback){
+    // settingsManager.save(s,identifier,settings,callback);
 
 };
 
 
-exports.setSettings = function(s){
+exports.setSettings = function(s ){
 
-    saveSettings(s);
+    settings = s;
 
 };
 

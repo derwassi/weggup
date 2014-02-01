@@ -93,6 +93,7 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
     $scope.setColorPreview = function(col){
 
         if(prevColors[0]!=col[0] || prevColors[1]!=col[1] || prevColors[2]!=col[2]){
+            console.log(col);
             socket.emit('setColor',{r:col[0],g:col[1],b:col[2]});
             prevColors = col;
         }
