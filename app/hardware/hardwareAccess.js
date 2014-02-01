@@ -67,10 +67,13 @@ exports.getSensor = function (pin, mode, map) {
 
 
 exports.getAverageValues = function (pin, delta, samples) {
-    values[pin] = adc.read(pin,function(v){
-        values[pin] = v;
-    });
-    pollMean(pin, samples, parseInt(delta / samples));
+
+    if(samples){
+        pollMean(pin, samples, parseInt(delta / samples));
+    }else{
+        adc.poll(pin,delta,function(v){values[pin]=v;});
+    }
+
 };
 
 exports.setActuator = function (value, pin, mode, map) {

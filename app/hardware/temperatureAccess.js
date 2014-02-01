@@ -10,8 +10,8 @@ var hardware = require('../models/hardware');
 var pinInner = hardware.sensors.temperatureInner;
 var pinOuter = hardware.sensors.temperatureOuter;
 
-hardwareAccess.getAverageValues(pinOuter.pin,600000,5);
-hardwareAccess.getAverageValues(pinInner.pin,1000,1);//faster averaging for inner temperature => overheat
+hardwareAccess.getAverageValues(pinOuter.pin,600000);
+hardwareAccess.getAverageValues(pinInner.pin,1000);//faster averaging for inner temperature => overheat
 
 var map = function(v){
         //from http://www.nextit.de/2011/07/thermometer-mit-arduino/

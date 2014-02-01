@@ -11,7 +11,7 @@ var hardwareAccess = require('./hardwareAccess');
 var hardware = require('../models/hardware');
 
 var pin = hardware.sensors.brightness;
-hardwareAccess.getAverageValues(pin.pin,600000,5);
+hardwareAccess.getAverageValues(pin.pin,600000);
 
 
 //map from 0 to 100 (arbitrarily chosen)
