@@ -65,13 +65,14 @@ exports.init = function (settings, id) {
 };
 
 exports.save = function (newSettings, id,settings) {
-    //console.log('SPEICHERN',settings);
+
     Object.keys(newSettings).forEach(function (key) {
         var val = newSettings[key];
 
         saveValue(id, key, val,function(val){
 
             settings[key]=val;
+
 
         });
     });

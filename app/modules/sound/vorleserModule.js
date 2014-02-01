@@ -39,7 +39,6 @@ var positionAtStart = 0;
 var read = function(){
     var files = fs.readdirSync(_basedir + settings.dir);
     positionAtStart = Math.max(0, settings.position+startOffset);
-    console.log(settings.position);
     startTime = Date.now();
     files.sort();
     //console.log(files);

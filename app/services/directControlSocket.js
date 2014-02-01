@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 //var hardwareAccess = require('../hardware/hardwareAccess');
 var mplayer = require('../hardware/soundAccess');
 var soundMixer = require('../modules/sound/soundMixerModule');
+var soundModule = require('../modules/sound/soundModule');
 var lightMixer = require('../modules/light/sequenceLightModule');
+var previewLightModule = require('../modules/light/lightPreviewModule')
 var hardware;
 
 var map = function(val, fl,fu,tl,tu){
@@ -15,37 +17,18 @@ var map = function(val, fl,fu,tl,tu){
 var music = {};
 
 io.sockets.on('connection',function(socket){
-    socket.on('get',function(sensor){
-        //TODO change interface
-       /* if(typeof hardware.sensors[sensor.name] != 'undefined'){
 
-            var value=hardwareAccess.getSensor(hardware.sensors[sensor.name].pin,hardware.sensors[sensor.name].mode);//TODO: map from model!
-            socket.emit('sensorvalue',value);
-        }*/
+    socket.on('setColor',function(color){
 
-    });
-    socket.on('set',function(actuator){
-        /*if(typeof hardware.actuators[actuator.name] != 'undefined'){
-            //console.log(hardware.actuators[actuator.name])
-            var value=hardwareAccess.setActuator(actuator.valtotally removed hardware modelue,hardware.actuators[actuator.name].pin,hardware.actuators[actuator.name].mode,function(v){return map(v,0,255,0,1);});//TODO: map from model!
-        }*/
+        previewLightModule.setSettings(color);
+        previewLightModule.launch();
     });
     socket.on('play', function(audio){
-        if(music[audio.file]){
-            try{
-                music[audio.file].stop();
-            }catch(err){
-
-            }
-
-        }
-        music[audio.file] = mplayer.play('./moodsounds/'+audio.file, audio.repeat, audio.volume);
-        music[audio.file].play();
+        soundModule.setSettings(audio);
+        soundModule.launch();
     });
     socket.on('stop', function(audio){
-        if(music[audio.file]){
-            music[audio.file].stop();
-        }
+        soundModule.stop();
     });
     socket.on('playPreview', function(list){
        soundMixer.play(list);
@@ -56,6 +39,6 @@ io.sockets.on('connection',function(socket){
 
     socket.on('playLight',function(list){
 
-        lightMixer.play(list,'00:10');
+        lightMixer.play(list.items,list.duration);
     });
 });

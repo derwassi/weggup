@@ -2,20 +2,23 @@
  * Created by wassi on 19.01.14.
  */
 
+//TODO: essentially the same as light module, try not to duplicate code...
 var _ = require('underscore');
 var sharedResources = require('./../../services/sharedResources');
 
 var lightAccess = require('./../../hardware/lightAccess');
 
 var settingsManager = require('../../services/settings');
-var identifier = "light/lightModule";
+var identifier = "light/lightPreviewModule";
 var running = false;
 
+var to = 10000;
+
+
 var settings = {
-    duration:3600000,
-    red:255,
-    green:255,
-    blue:255
+    r:255,
+    g:255,
+    b:255
 };
 //store initial settings in DB
 settingsManager.init(settings,identifier);
@@ -24,9 +27,9 @@ var timeOut;
 
 var lightControl = {
     start: function(){
-        lightAccess.setColor(settings.red,settings.green,settings.blue);
+        lightAccess.setColor(settings.r,settings.g,settings.b);
         running = true;
-        timeOut = setTimeout(exports.stop,settings.duration);
+        timeOut = setTimeout(exports.stop,to);
     },
     stop: function(){
         lightAccess.setColor(0,0,0);

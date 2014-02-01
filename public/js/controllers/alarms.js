@@ -91,26 +91,23 @@ angular.module('mean.alarms').controller('AlarmsController', ['$scope', '$routeP
 
     var prevColors = [-1,-1,-1];
     $scope.setColorPreview = function(col){
-        //TODO: über sockets, sonst zu langsam!
+
         if(prevColors[0]!=col[0] || prevColors[1]!=col[1] || prevColors[2]!=col[2]){
-            socket.emit('set',{name:'red',value:col[0]});
-            socket.emit('set',{name:'green',value:col[2]});
-            socket.emit('set',{name:'blue',value:col[2]});
-
-
+            socket.emit('setColor',{r:col[0],g:col[1],b:col[2]});
             prevColors = col;
         }
-
     };
+
+    $scope.playColorPreview = function(files){
+        socket.emit('playColorPreview',files);
+    };
+
 
     $scope.playAudio = function(audio){
         socket.emit('play',audio);
     };
     $scope.stopAudio = function(audio){
         socket.emit('stop',audio);
-    };
-    $scope.playLight=function(list){
-        socket.emit('playLight',list);
     };
 
     $scope.playAudioPreview = function(files){
