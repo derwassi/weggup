@@ -41,7 +41,7 @@ var tween = function () {
         from: from,
         to: to,
         duration: Math.random()*settings.randomTime-settings.randomTime/2+settings.minTime,
-        fps:0,
+        fps:30,
         //start: function () { console.log('Off I go!'); },
         step: function(){
             //console.log(fromr,fr);
@@ -61,6 +61,7 @@ var timeOut;
 var lightControl = {
     start: function(){
         exports.stop();
+        from={r:0,g:0,b:0};
         tw = new shifty();
         running = true;
         tween();
