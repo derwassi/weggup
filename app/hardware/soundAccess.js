@@ -39,6 +39,9 @@ exports.play = function (soundFile, loop, volume) {
         sound.removeAllListeners('exit');
         sound.kill('SIGTERM');
     };
+    player.seek = function(millis){
+        player.sendCommand('seek ' + parseInt(millis/1000) + ' 2');
+    }
     player.on = function(event,callback){
         sound.on(event,callback);
     };

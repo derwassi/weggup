@@ -10,6 +10,8 @@ var fs = require('fs');
 var settingsManager = require('../../services/settings');
 
 var _index = 0;
+//milliseconds to rewind on start
+var startOffset = -5000;
 var _basedir = 'audiobooks/';
 var settings = {
     dir: 'test',
@@ -30,10 +32,14 @@ var _volume = settings.maxVolume;
 var running = false;
 var player =  null;
 var startTime;
+var positionAtStart = 0;
+
 
 //TODO: position
 var read = function(){
     var files = fs.readdirSync(_basedir + settings.dir);
+    positionAtStart = Math.max(0, settings.position+startOffset);
+    console.log(settings.position);
     startTime = Date.now();
     files.sort();
     //console.log(files);
@@ -46,14 +52,16 @@ var read = function(){
 
     //reduce volume after 10 minutes
     player = soundAccess.play(_basedir + settings.dir + '/' + settings.file);
+    player.seek(settings.position);
     player.play();
+
     player.volume(_volume);
     //read next file, when current file finished
     player.on('exit',function(){
         _index++;
         //TODO: save to model!
         if(_index<files.length){
-            settings.position=0;
+            settings.position = 0;
             settings.file = files[_index];
             read();
         }
@@ -74,6 +82,10 @@ var reduceVolume=function(){
         },settings.fadeOutTime);
         event.emitter.once('movement.primary',function(){
             //console.log('TEST');
+
+            settings.position = positionAtStart + Date.now()-startTime;
+            //update position
+            exports.setSettings(settings);
             clearTimeout(stopReading);
             _volume = settings.maxVolume;
             player.volume(_volume);
@@ -81,12 +93,18 @@ var reduceVolume=function(){
         });
     },settings.readTime);
 };
+
 var stop=function(){
     if(player){
         player.stop();
+        player = null;
+       settings.position = positionAtStart + Date.now()-startTime;
+
+
     }
     clearTimeout(stopReading);
     clearTimeout(reduceReading);
+
     exports.setSettings(settings);//auto save on closing
     running = false;
 };
