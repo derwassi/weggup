@@ -4,7 +4,7 @@
 
 var _ = require('underscore');
 var soundAccess = require('./../../hardware/soundAccess');
-
+var identifier = 'sound/soundMixerModule';
 
 var timeOuts = [];
 var instances = [];
@@ -55,7 +55,7 @@ var running = false;
 var soundControl = {
     start: function(){
        play();
-        running = true;
+       running = true;
     },
     stop: function(){
         timeOuts.forEach(function(v){
@@ -74,11 +74,24 @@ var soundControl = {
 };
 
 
-exports.play = function (l) {
-    soundAccess.play(l);
+exports.launch = function () {
+
+    soundControl.play(l);
 };
 
 exports.stop = function () {
     soundControl.stop();
+};
+
+exports.getSettings = function(){
+   return {list:'',duration:length};//TODO
+};
+exports.setSettings = function(s){
+   list = s.list;//TODO
+   length = s.duration;
+};
+
+exports.getIdentifier = function(){
+    return {name:"SoundMixer",identifier:identifier};
 };
 

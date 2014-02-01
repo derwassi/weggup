@@ -85,6 +85,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-env');
 
+
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
 
@@ -92,5 +93,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'nodemon']);
 
     //Test task.
-    grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+    grunt.registerTask('test', ['env:test', 'mochaTest' /*'karma:unit'*/]);
+
+
 };

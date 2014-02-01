@@ -10,7 +10,7 @@ var fs = require('fs');
  * List of files
  */
 exports.all = function(req, res) {
-    //TODO: in model auslagern!
+
     var basedir = req.params.basedir || './moodsounds/';
     fs.readdir(basedir,function(err,files){
         if (err) {
@@ -19,7 +19,7 @@ exports.all = function(req, res) {
             });
         } else {
             var f = [];
-            for(var file in files){
+            for(var file=0;file<files.length;file++){
                 f.push({file:files[file]});
             }
 

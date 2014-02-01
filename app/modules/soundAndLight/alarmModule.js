@@ -4,9 +4,9 @@
 var mongoose = require('mongoose');
 Alarm = mongoose.model('Alarm');
 
-var sharedResources = require('../../services/sharedResources');
-var sequenceLight = require('../light/sequenceLight');
-var soundMixer = require('../sound/soundMixer');
+//var sharedResources = require('../../services/sharedResources');
+var sequenceLight = require('../light/sequenceLightModule');
+var soundMixer = require('../sound/soundMixerModule');
 var currentAlarm;
 var settings = {alarm:''};
 
@@ -15,33 +15,6 @@ var settings = {alarm:''};
 
 
 
-
-
-var soundControl = {
-    start:function(){
-        read();
-        running = true;
-    },
-    stop:function(){
-        stop();
-    },
-    isProcessRunning: function(){
-        return running;
-    }
-};
-
-var lightControl = {
-    start:function(){
-        read();
-        running = true;
-    },
-    stop:function(){
-        stop();
-    },
-    isProcessRunning: function(){
-        return running;
-    }
-};
 
 
 var start = function(alarm){
@@ -61,6 +34,11 @@ var start = function(alarm){
         //TODO: alarm auslösen
     }
 };
+var stop = function(){
+  sequenceLight.stop();
+  soundMixer.stop();//TODO
+
+};
 
 //TODO: eventlistener für button druck => timeout ausschalten (module werden von haus aus beendet)
 //TODO: eventlistener für button druck => snooze/ganz aus (5x drücken in 10 sekunden)
@@ -69,7 +47,7 @@ exports.launch = function(){
     if(!currentAlarm || (settings.alarm && settings.alarm!==currentAlarm._id)){
         Alarm.findById(settings.alarm,function(err,alarm){
             start(alarm);
-        })
+        });
     }else{
         start(currentAlarm);
     }
@@ -94,4 +72,7 @@ exports.getSettings = function(){
 exports.setAlarm = function(alarm){
     currentAlarm = alarm;
     settings.alarm = alarm._id;
-}
+};
+exports.stop = function(){
+    stop();
+};

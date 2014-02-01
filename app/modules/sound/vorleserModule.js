@@ -2,9 +2,6 @@
  * Created by wassi on 27.12.13.
  */
 
-//TODO: Spiele nacheinander Dateien aus Verzeichnis ab, werde alle 10 Minuten leiser
-// findet in dieser zeit eine Bewegung statt => wieder auf volle lautstärke hochregeln
-// Vorlesen per TTS
 var identifier= "sound/vorleser";
 var soundAccess = require('../../hardware/soundAccess');
 var sharedResources = require('../../services/sharedResources');
@@ -32,13 +29,14 @@ var _volume = settings.maxVolume;
 
 var running = false;
 var player =  null;
-
+var startTime;
 
 //TODO: position
 var read = function(){
     var files = fs.readdirSync(_basedir + settings.dir);
+    startTime = Date.now();
     files.sort();
-    console.log(files);
+    //console.log(files);
     _index = files.indexOf(settings.file);
     if(_index==-1){
         settings.file = files[0];
@@ -60,7 +58,7 @@ var read = function(){
             read();
         }
     });
-    var stopReading = null;
+    stopReading = null;
     reduceVolume();
 };
 var stopReading;
@@ -75,7 +73,7 @@ var reduceVolume=function(){
 
         },settings.fadeOutTime);
         event.emitter.once('movement.primary',function(){
-            console.log('TEST');
+            //console.log('TEST');
             clearTimeout(stopReading);
             _volume = settings.maxVolume;
             player.volume(_volume);
@@ -115,9 +113,9 @@ exports.stop = function(){
 };
 
 
-var loadSettings = function(){
+/*var loadSettings = function(){
     settingsManager.load(settings,identifier);
-};
+};*/
 
 var saveSettings = function(s){
     settingsManager.save(s,identifier,settings);

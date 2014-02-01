@@ -2,13 +2,18 @@
  * Created by wassi on 19.01.14.
  */
 
+//TODO: put all this somewhere else...
 var onoff = require('onoff').Gpio;
-
+var hardware = require('../models/hardware');
 var sharedResource = require('../services/sharedResources');
-var light = require('../modules/light/light');
-//TODO: werte aus konfig
+var light = require('../modules/light/lightModule');
+var pin = hardware.sensors.button;
+
+
+
+
 try{
-var button1 = new onoff(17, 'in', 'both');
+var button1 = new onoff(pin.pin, 'in', 'both');
 
 //stop running services, when pressing button.
 //when no process was running, start light.
@@ -35,4 +40,4 @@ button1.watch(function(err, value) {
 });
 }catch(e){
     console.log('no buttons');
-};
+}

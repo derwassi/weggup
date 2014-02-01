@@ -4,20 +4,22 @@
 
 var cronJob = require('cron').CronJob;
 var events = require('../services/eventbus');
+
 var emitter = events.emitter;
-var player = require('../hardware/soundAccess');
+
 var ringers = [];
 
 
 var clear = function(){
-    ringers.forEach(function (v, k, a) {
+    ringers.forEach(function (v) {
         v.job.stop();
     });
     ringers.length = 0;
 };
 
-var ring = function(alarm){
-  //TODO
+var ring = function(alarm,module){
+  module.setAlarm(alarm);
+  module.launch();
 };
 
 
@@ -25,7 +27,7 @@ var ring = function(alarm){
 //determine on waketime, current time and last modification time wether the alarm is still to be executed
 var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
     var modified = modifiedDate.getHours()*60+modifiedDate.getMinutes();
-    var now = nowDate.getHours()*60+nowDate.getMinutes();
+    //var now = nowDate.getHours()*60+nowDate.getMinutes();
     var alarmPoint = new Date();
     alarmPoint.setTime(modified.getTime());
     alarmPoint.setHours(0);
@@ -39,9 +41,10 @@ var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
     return false;
 
 
-}
+};
 
-var schedule = function(alarms, module){
+exports.schedule = function(alarms, module){
+    clear();
     alarms.forEach(function (alarm) {
         //Get daytime
         var time = alarm.wakeTime.split(':');
@@ -58,7 +61,7 @@ var schedule = function(alarms, module){
             if(alarmPoint){
                 ringers.push(
                     {job:new cronJob(alarmPoint.getMinutes() + " " + alarmPoint.getHours() + " " + alarmPoint.getDate() + " " + (alarmPoint.getMonth() + 1) + " *", function () {
-                        ring(alarm);
+                        ring(alarm,module);
                     }),
                         alarm:alarm
                     });
@@ -80,7 +83,7 @@ emitter.on('movement.primary',function(){
     //TODO: when using ambient wakeup schedule alarm before next light sleeping phase
     //TODO: when using default noisy wakeup, and in timerange before actual wakeuptime => wakeup immediately!
     var cycleLength = 3600*3*1000;
-    ringers.forEach(function(v,k){
+    ringers.forEach(function(v){
         var t = v.job.cronTime.getTimeout();
         if(t>cycleLength && t<2*cycleLength){
 

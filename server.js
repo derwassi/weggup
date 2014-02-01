@@ -58,9 +58,9 @@ require('./app/services/directControlSocket');
 
 //initialize logging
 require('./app/hardware/hardwareAccess');
-require('./app/modules/logger/brightnessLogger').start();
-require('./app/modules/logger/movementLogger').start();
-require('./app/modules/logger/TemperatureLogger').start();
+require('./app/dataLogger/brightnessLogger').start();
+require('./app/dataLogger/movementLogger').start();
+require('./app/dataLogger/TemperatureLogger').start();
 require('./app/hardware/buttonAccess');
 
 //expose app

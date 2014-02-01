@@ -23,15 +23,15 @@ angular.module('mean').config(['$routeProvider',
             when('/module', {
                 templateUrl: 'views/modules/index.html'
             }).
-            when('/module/sound/vorleser', {
+            when('/module/sound/vorleserModule', {
                 templateUrl: 'views/modules/edit.html'
 
             }).
-            when('/module/light/light', {
+            when('/module/light/lightModule', {
                 templateUrl: 'views/modules/edit.html'
 
             }).
-            when('/module/light/moodLight', {
+            when('/module/light/moodLightModule', {
                 templateUrl: 'views/modules/edit.html'
 
             }).

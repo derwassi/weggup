@@ -2,7 +2,7 @@
  * Created by wassi on 19.01.14.
  */
 
-var light = require('../../hardware/brightnessAccess');
+var light = require('../hardware/brightnessAccess');
 var delta = 2;
 var mongoose = require('mongoose'),
     Datalog = mongoose.model('Datalog');

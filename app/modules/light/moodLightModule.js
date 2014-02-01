@@ -41,10 +41,10 @@ var tween = function () {
         from: from,
         to: to,
         duration: Math.random()*settings.randomTime-settings.randomTime/2+settings.minTime,
-        fps:30,
+        fps:0,
         //start: function () { console.log('Off I go!'); },
         step: function(){
-            console.log(from);
+            //console.log(fromr,fr);
             lightAccess.setColor(from.r,from.g,from.b);
 
         },
@@ -81,7 +81,7 @@ var lightControl = {
 };
 
 
-exports.start = function (p, l) {
+exports.start = function () {
     sharedResources.light.run(lightControl);
 };
 
@@ -92,7 +92,6 @@ exports.stop = function () {
 
 
 exports.launch = function(){
-    //TODO: fetch data from model, call setparams
     exports.start();
 };
 
@@ -100,9 +99,9 @@ exports.getIdentifier = function(){
     return {name:"MoodLight",identifier:identifier};
 };
 
-var loadSettings = function(){
+/*var loadSettings = function(){
     settingsManager.load(settings,identifier);
-};
+};*/
 
 var saveSettings = function(s){
     settingsManager.save(s,identifier,settings);

@@ -2,11 +2,16 @@
  * Created by wassi on 19.01.14.
  */
 
-//TODO: zwei sensoren,
 //innerer schmeisst event bei Überhitzung und abkühlung (einschalten/ausschalten von licht!)
 
 var hardwareAccess = require('./hardwareAccess');
-//TODO: use lookup table/correct function
+var hardware = require('../models/hardware');
+
+var pinInner = hardware.sensors.temperatureInner;
+var pinOuter = hardware.sensors.temperatureOuter;
+hardwareAccess.getAverageValues(pinOuter.pin,600000,5);
+hardwareAccess.getAverageValues(pinInner.pin,1000,1);//faster averaging for inner temperature => overheat
+
 var map = function(v){
         //from http://www.nextit.de/2011/07/thermometer-mit-arduino/
         var r1 = 10000; // Wert des Festen Wiederstandes des sabbungsteiler
@@ -23,19 +28,16 @@ var map = function(v){
         temp = b*tn/(b+Math.log((r_akt/r2))/Math.LN10*tn);
         temp = temp - 273.15; //Ergebnis in Grad Celsius umwandeln
         ergebnis =temp;
-    console.log(ergebnis);
+
         return ergebnis;
 
 };
 
 exports.getOuterTemperature = function(){
-    //TODO: aus Modell lesen
-
-    return hardwareAccess.getSensor(5,'spi',map);
+    return hardwareAccess.getSensor(pinOuter.pin,pinOuter.type,map);
 };
 
 
 exports.getInnerTemperature = function(){
-    //TODO: aus Modell lesen
-    return hardwareAccess.getSensor(6,'spi',map);
+    return hardwareAccess.getSensor(pinInner.pin,pinInner.type,map);
 };

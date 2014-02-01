@@ -2,10 +2,54 @@
  * Module dependencies.
  */
 
-var mongoose = require('mongoose'),
-    config = require('../../config/config'),
-    Schema = mongoose.Schema;
-
+exports.actuators = {
+    red:{
+        type:'pwm',
+        pin:27
+    },
+    green:{
+        type:'pwm',
+        pin:18
+    },
+    blue:{
+        type:'pwm',
+        pin:22
+    },
+    fan:{
+        type:'pwm',
+        pin:23
+    },
+    sound:{
+        type:'digital',
+        pin:0//TODO, implement in hardware
+    }
+};
+exports.sensors = {
+    brightness:{
+        type:'adc',
+        pin:4
+    },
+    motionPrimary:{
+        type:'adc',
+        pin:0
+    },
+    motionSecondary:{
+        type:'adc',
+        pin:1
+    },
+    temperatureInner:{
+        type:'adc',
+        pin:5
+    },
+    temperatureOuter:{
+        type:'adc',
+        pin:6
+    },
+    button:{
+        type:'digital',
+        pin:17
+    }
+};
 
 //obsolete, makes no sense inmodel, but useful for reference
 

@@ -2,7 +2,7 @@
  * Created by wassi on 19.01.14.
  */
 
-var temp = require('../../hardware/temperatureAccess');
+var temp = require('../hardware/temperatureAccess');
 var delta = 0.5;
 var mongoose = require('mongoose'),
     Datalog = mongoose.model('Datalog');

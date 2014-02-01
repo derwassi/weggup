@@ -20,7 +20,7 @@ module.exports = function(app) {
     var settings = require('../app/controllers/settings');
     var moduleLauncher = require('../app/controllers/moduleLauncher');
 
-    var modulesKeys = ['light/light','light/moodLight','sound/vorleser'];
+    var modulesKeys = ['light/lightModule','light/moodLightModule','sound/vorleserModule'];
     for(var i=0;i<modulesKeys.length;i++){
         var module = require('../app/modules/'+modulesKeys[i]);
 

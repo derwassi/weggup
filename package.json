@@ -67,7 +67,12 @@
         "karma-phantomjs-launcher": "~0.1.0",
         "karma": "~0.10.4",
         "grunt-karma": "~0.6.2",
-        "karma-coverage": "~0.1.0"
+        "karma-coverage": "~0.1.0",
+        "jasmine-node":"latest",
+        "grunt-contrib-jasmine":"latest",
+        "grunt-jasmine-node":"latest",
+        "glob":"latest",
+        "sinon":"latest"
 
     }
 }

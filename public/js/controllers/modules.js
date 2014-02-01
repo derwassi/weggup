@@ -1,9 +1,12 @@
-angular.module('mean.modules').controller('ModulesController', ['$resource', '$scope', '$routeParams', '$location', 'Global', function ($resource, $scope, $routeParams, $location, Global) {
+angular.module('mean.modules').controller('ModulesController', ['$resource', '$scope', '$routeParams', '$location'/*, 'Global'*/, function ($resource, $scope, $routeParams, $location/*, Global*/) {
 
     $scope.modules = [
-        {id: 'sound/vorleser', title: 'Vorlesen'},
-        {id: 'light/light', title: 'Light'},
-        {id: 'light/moodLight', title: 'Moodlight'}
+        {id: 'sound/vorleserModule', title: 'Vorlesen'},
+        {id: 'light/lightModule', title: 'Light'},
+        {id: 'light/moodLightModule', title: 'Moodlight'}/*,
+        {id: 'soundAndLight/alarmModule'},
+        {id: 'sound/soundMixerModule', title: 'soundMixer'},
+        {id: 'light/sequenceLightModule', title: 'sequenceLightModule'}*/
     ];
 
     $scope.settings = {};
@@ -19,14 +22,14 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
         return cur;
     };
 
-    $scope.$watch('activeModule', function (newVal, oldVal) {
+    $scope.$watch('activeModule', function (newVal) {
         //TODO:load settings
         console.log(newVal);
     });
 
 
     $scope.start = function (module) {
-        var res = $resource('module/' + module.id + '/start').get(function () {
+        $resource('module/' + module.id + '/start').get(function () {
             $scope.modules.forEach(function (v) {
                 v.running = v.id === module.id;
             });
@@ -36,7 +39,7 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
     };
 
     $scope.stop = function (module) {
-        var res = $resource('module/' + module.id + '/stop').get(function () {
+        $resource('module/' + module.id + '/stop').get(function () {
             module.running = false;
         });
 
@@ -45,7 +48,7 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
 
     $scope.save = function () {
 
-        var res = $resource('module/' + activeModule.id, {}, {'put': {method: 'PUT', params: $scope.settings}}).put(
+        $resource('module/' + activeModule.id, {}, {'put': {method: 'PUT', params: $scope.settings}}).put(
             function () {
                 $location.path('/module');
             }

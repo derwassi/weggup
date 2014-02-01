@@ -5,21 +5,24 @@
  * Created by wassi on 19.01.14.
  */
 
-//innerer schmeisst event bei Überhitzung und abkühlung (einschalten/ausschalten von licht!)
 
 var hardwareAccess = require('./hardwareAccess');
+var hardware = require('../models/hardware');
+var pin1 = hardware.sensors.motionPrimary;
+var pin2 = hardware.sensors.motionSecondary;
 
-//from +100 to -100, (chosen arbitrarily)
+hardwareAccess.getAverageValues(pin1.pin,100,100);
+hardwareAccess.getAverageValues(pin2.pin,100,100);
+
+
 var map = function(v){
    return v;
-}
+};
 
 exports.getMainMovement = function(){
-    //TODO: aus Modell lesen
-    return hardwareAccess.getSensor(0,'spi',map);
+    return hardwareAccess.getSensor(pin1.pin,pin1.type,map);
 };
 
 exports.getSecondaryMovement = function(){
-    //TODO: aus Modell lesen
-   return hardwareAccess.getSensor(1,'spi',map);
+   return hardwareAccess.getSensor(pin2.pin,pin2.type,map);
 };

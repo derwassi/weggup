@@ -8,7 +8,7 @@ var shifty = require('shifty/dist/shifty');
 var sharedResources = require('./../../services/sharedResources');
 
 var lightAccess = require('./../../hardware/lightAccess');
-
+var identifier = 'light/sequenceLightModule';
 
 var pos = 0;
 
@@ -103,7 +103,7 @@ var lightControl = {
 };
 
 
-exports.play = function (p, l) {
+exports.launch = function () {
     sharedResources.light.run(lightControl);
 };
 
@@ -111,9 +111,16 @@ exports.stop = function () {
     lightControl.stop();
 };
 
-exports.setParams = function(p,l){
-    points = p;
-    length = l;
+exports.setSettings = function(o){
+    points = o.points;
+    length = o.length;
 
 };
 
+exports.getSettings = function(){
+  return {points:points,length:length};
+};
+
+exports.getIdentifier = function(){
+    return {name:"SequenceLight",identifier:identifier};
+};

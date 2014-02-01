@@ -8,7 +8,7 @@ var sharedResources = require('./../../services/sharedResources');
 var lightAccess = require('./../../hardware/lightAccess');
 
 var settingsManager = require('../../services/settings');
-var identifier = "light/light";
+var identifier = "light/lightModule";
 var running = false;
 
 var settings = {
@@ -37,7 +37,7 @@ var lightControl = {
 };
 
 
-exports.start = function(){
+var start = function(){
     sharedResources.light.run(lightControl);
 };
 
@@ -48,16 +48,16 @@ exports.stop = function(){
 
 
 exports.launch = function(){
-    exports.start();
+    start();
 };
 
 exports.getIdentifier = function(){
     return {name:"Lamp",identifier:identifier};
 };
 
-var loadSettings = function(){
+/*var loadSettings = function(){
     settingsManager.load(settings,identifier);
-};
+};*/
 
 var saveSettings = function(s){
     settingsManager.save(s,identifier,settings);
