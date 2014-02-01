@@ -95,7 +95,7 @@ var tween = function () {
 //access restriction for light
 var lightControl = {
     start: function(){
-        length = convertTimeToMillis(settings.duration);
+        length = convertTimeToMillis(settings.length);
         pos = 0;
 
 
