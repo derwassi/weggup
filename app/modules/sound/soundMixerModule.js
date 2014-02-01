@@ -47,9 +47,11 @@ var play = function(){
             var player = soundAccess.play(v.file, v.repeat, v.volume);
             instances.push(player);
             timeOuts.push(setTimeout(function(){
+                console.log('start', v.file);
                 player.play();
             },from));
             timeOuts.push(setTimeout(function(){
+                console.log('stop', v.file);
                 player.stop();
             },to));
         }

@@ -82,6 +82,8 @@ var tween = function () {
         finish: function () {
             if (pos <= settings.list.length) {
                 tween();
+            }else{
+                lightControl.stop();
             }
         }
     });
