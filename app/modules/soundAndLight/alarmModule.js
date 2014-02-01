@@ -27,9 +27,9 @@ exports.launch = function(){
             repeat: v.repeat,
             volume: v.volume}) ;
     });
-    sequenceLight.setSettings({list:alarm.gradient,duration:alarm.ambientDuration,speed:1});
+    sequenceLight.setSettings({list:alarm.gradient,length:alarm.ambientDuration,speed:1});
     sequenceLight.launch();
-    soundMixer.setSettings({list:l,duration:alarm.ambientDuration,speed:1});
+    soundMixer.setSettings({list:l,length:alarm.ambientDuration,speed:1});
     soundMixer.launch();
 
 };

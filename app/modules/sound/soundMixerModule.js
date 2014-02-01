@@ -30,7 +30,7 @@ var play = function(){
     if(!settings.start) settings.start = 0;
     if(!settings.speed) settings.speed = 1
 
-    var duration = convertTimeToMillis(settings.length)/settings.speed;
+    var duration = convertTimeToMillis(settings.length);
     settings.start -=100;//-100 ms  to ensure start of first sound!
 
     if(!settings.list){
@@ -41,6 +41,7 @@ var play = function(){
 
         var from = (parseFloat(v.from)/100)*duration;
         var to = parseFloat(v.to)/100*duration;
+        console.log(from,to);
         if(to>start){
             to=to-start;
             from = Math.max(from-start,0);

@@ -35,9 +35,9 @@ io.sockets.on('connection',function(socket){
 
     socket.on('play', function(list){
         console.log(list);
-        soundMixer.setSettings({list:list.audio.list,duration:list.duration,speed:list.speed});
+        soundMixer.setSettings({list:list.audio.list,length:list.duration,speed:list.speed});
         soundMixer.launch();
-        lightsequence.setSettings({list:list.light.list,duration:list.duration,speed:list.speed});
+        lightsequence.setSettings({list:list.light.list,length:list.duration,speed:list.speed});
         lightsequence.launch();
     });
     socket.on('stop', function(){
