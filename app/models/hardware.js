@@ -26,23 +26,23 @@ exports.actuators = {
 };
 exports.sensors = {
     brightness:{
-        type:'adc',
+        type:'spi',
         pin:4
     },
     motionPrimary:{
-        type:'adc',
+        type:'spi',
         pin:0
     },
     motionSecondary:{
-        type:'adc',
+        type:'spi',
         pin:1
     },
     temperatureInner:{
-        type:'adc',
+        type:'spi',
         pin:5
     },
     temperatureOuter:{
-        type:'adc',
+        type:'spi',
         pin:6
     },
     button:{

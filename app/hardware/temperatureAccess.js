@@ -9,6 +9,7 @@ var hardware = require('../models/hardware');
 
 var pinInner = hardware.sensors.temperatureInner;
 var pinOuter = hardware.sensors.temperatureOuter;
+
 hardwareAccess.getAverageValues(pinOuter.pin,600000,5);
 hardwareAccess.getAverageValues(pinInner.pin,1000,1);//faster averaging for inner temperature => overheat
 

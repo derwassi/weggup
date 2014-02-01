@@ -33,7 +33,7 @@ button1.watch(function(err, value) {
         stopped = true;
     }
     if(!stopped){
-        light.start();
+        light.launch();
     }
 }
 

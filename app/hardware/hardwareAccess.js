@@ -67,6 +67,9 @@ exports.getSensor = function (pin, mode, map) {
 
 
 exports.getAverageValues = function (pin, delta, samples) {
+    values[pin] = adc.read(pin,function(v){
+        values[pin] = v;
+    });
     pollMean(pin, samples, parseInt(delta / samples));
 };
 

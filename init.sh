@@ -21,7 +21,7 @@ case "$1" in
   start)
     echo "* starting node-server * "
     echo "* starting node-server * [`date`]" >> /var/log/node-server.log
-    schlafei >> /var/log/node-server.log 2>&1&
+    ./schlafei.sh >> /var/log/node-server.log 2>&1&
     ;;
   stop)
     echo "* stopping node-server * "
