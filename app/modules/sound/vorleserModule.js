@@ -35,7 +35,6 @@ var startTime;
 var positionAtStart = 0;
 
 
-//TODO: position
 var read = function(){
     var files = fs.readdirSync(_basedir + settings.dir);
     positionAtStart = Math.max(0, settings.position+startOffset);
@@ -58,7 +57,6 @@ var read = function(){
     //read next file, when current file finished
     player.on('exit',function(){
         _index++;
-        //TODO: save to model!
         if(_index<files.length){
             settings.position = 0;
             settings.file = files[_index];

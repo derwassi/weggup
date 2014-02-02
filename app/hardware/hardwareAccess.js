@@ -61,7 +61,6 @@ exports.getSensor = function (pin, mode, map) {
     }
     var value = 0;
     if (mode == 'spi') {
-        //TODO: readSpiValue
         value = values[pin];
     }
 

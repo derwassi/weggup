@@ -1,5 +1,5 @@
 <section data-ng-controller="ModulesController" >
-    <h1>Vorleser</h1>
+    <h1>{{activeModule.title}}</h1>
     <form class="form-horizontal" data-ng-submit="save()">
 
         <div class="control-group"  ng-repeat="(k,v) in settings">

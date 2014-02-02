@@ -99,7 +99,8 @@ emitter.on('movement.primary',function(){
     //TODO: get sleepcycle duration from settings (calculated continuosly)
     //TODO: when upcoming alarm is between next and overnext light sleeping phase adjust ring time accordingly
     //TODO: when using ambient wakeup schedule alarm before next light sleeping phase
-    //TODO: when using default noisy wakeup, and in timerange before actual wakeuptime => wakeup immediately!
+
+
     var cycleLength = 3600*3*1000;
     ringers.forEach(function(v){
         var t = v.job.cronTime.getTimeout();

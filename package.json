@@ -1,6 +1,6 @@
 {
     "name": "mean",
-    "description": "MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).",
+    "description": "WeggUp - your sleep supporter.",
     "version": "0.1.0",
     "private": false,
     "author": "Amos Haviv",

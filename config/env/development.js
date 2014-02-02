@@ -1,7 +1,7 @@
 module.exports = {
     db: "mongodb://localhost/mean-dev",
     app: {
-        name: "MEAN - A Modern Stack - Development"
+        name: "WeggUp - Your sleep supporter"
     }
 
 };

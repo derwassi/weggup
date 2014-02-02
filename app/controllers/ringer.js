@@ -16,8 +16,6 @@ var alarmModule = require('../modules/soundAndLight/alarmModule');
 
 
 
-//TODO: alarme richtig terminieren
-
 
 exports.update = function (req, res) {
 

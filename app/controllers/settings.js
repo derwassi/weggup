@@ -5,7 +5,7 @@
 exports.getEditor = function(module,url){
     return function(req,res,next){
 
-        module.setSettings(req.query);//TODO: eigtl. params...
+        module.setSettings(req.query);
         res.send(200);
     };
 };

@@ -48,7 +48,7 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
 
     $scope.save = function () {
 
-        $resource('module/' + activeModule.id, {}, {'put': {method: 'PUT', params: $scope.settings}}).put(
+        $resource('module/' + $scope.activeModule.id, {}, {'put': {method: 'PUT', params: $scope.settings}}).put(
             function () {
                 $location.path('/module');
             }
@@ -57,9 +57,9 @@ angular.module('mean.modules').controller('ModulesController', ['$resource', '$s
 
     };
 
-    var activeModule = getActiveModule();
-    if (activeModule) {
-        var settings = $resource('module/' + activeModule.id).get(function () {
+    $scope.activeModule = getActiveModule();
+    if ($scope.activeModule) {
+        var settings = $resource('module/' + $scope.activeModule.id).get(function () {
             console.log(settings);
             $scope.settings = settings;
         });
