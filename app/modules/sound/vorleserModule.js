@@ -111,11 +111,13 @@ var stop=function(){
 
 var soundControl = {
     start:function(){
+        soundAccess.turnOn();
         _volume = settings.maxVolume;
         read();
         running = true;
     },
     stop:function(){
+        soundAccess.turnOff()
         stop();
     },
     isProcessRunning: function(){

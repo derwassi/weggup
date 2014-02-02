@@ -28,10 +28,12 @@ var running = false;
 //access restriction for light
 var soundControl = {
     start: function(){
+        soundAccess.turnOn();
        play();
        running = true;
     },
     stop: function(){
+        soundAccess.turnOff();
         if(player){
             player.stop();
             player = null;

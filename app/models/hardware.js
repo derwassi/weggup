@@ -21,7 +21,7 @@ exports.actuators = {
     },
     sound:{
         type:'digital',
-        pin:0//TODO, implement in hardware
+        pin:4
     }
 };
 exports.sensors = {

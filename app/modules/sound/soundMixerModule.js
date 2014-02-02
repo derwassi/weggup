@@ -66,10 +66,12 @@ var running = false;
 //access restriction for light
 var soundControl = {
     start: function(){
+       soundAccess.turnOn();
        play();
        running = true;
     },
     stop: function(){
+        soundAccess.turnOff();
         timeOuts.forEach(function(v){
             clearTimeout(v);
         });

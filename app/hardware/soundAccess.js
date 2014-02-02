@@ -10,7 +10,15 @@ var _ = require('underscore');
 
 var spawn = require('child_process').spawn;
 var exec = require('child_process').exec;
+var hardwareAccess = require('../hardware/hardwareAccess');
+var hardware = require('../models/hardware');
 
+exports.turnOn = function(){
+    hardwareAccess.setActuator(1,hardware.actuators.sound.pin,hardware.actuators.sound.type);
+}
+exports.turnOff = function(){
+    hardwareAccess.setActuator(0,hardware.actuators.sound.pin,hardware.actuators.sound.type);
+}
 
 exports.play = function (soundFile, loop, volume) {
     var sound;
@@ -45,6 +53,7 @@ exports.play = function (soundFile, loop, volume) {
     player.on = function(event,callback){
         sound.on(event,callback);
     };
+
     args.push('-slave');
     args.push('-softvol');
     if(loop){

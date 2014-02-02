@@ -1,12 +1,15 @@
 var _ = require('underscore'),
     piblaster = require('pi-blaster.js'),
     spi = require('mcp3008.js'),
+    onoff = require('onoff')
     fs = require('fs');
 if(!fs.existsSync('/dev/pi-blaster')){
     piblaster.setPwm = function(pin,value){
         console.log('pi-blaster:',pin,value);
     };
 }
+
+
 try {
     var adc = new spi();
 } catch (e) {
@@ -23,6 +26,8 @@ try {
 
         }};
 }
+
+var digitalOutputs={};
 
 var values = {};
 var pollMean = function (pin, num, t) {
@@ -91,6 +96,12 @@ exports.setActuator = function (value, pin, mode, map) {
             console.log('error reading pin ' + pin + ' (' + mode + ')', exception);
             return false;
         }
+    }
+    if(mode == 'digital'){
+        if(!digitalOutputs[pin]){
+            digitalOutputs[pin] = new Gpio(pin, 'out');
+        }
+        digitalOutputs[pin].writeSync(value>0?1:0);
     }
     return true;
 };
