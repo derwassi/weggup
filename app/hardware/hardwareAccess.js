@@ -99,7 +99,7 @@ exports.setActuator = function (value, pin, mode, map) {
     }
     if(mode == 'digital'){
         if(!digitalOutputs[pin]){
-            digitalOutputs[pin] = new Gpio(pin, 'out');
+            digitalOutputs[pin] = new onoff.Gpio(pin, 'out');
         }
         digitalOutputs[pin].writeSync(value>0?1:0);
     }
