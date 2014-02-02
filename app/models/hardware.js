@@ -5,7 +5,7 @@
 exports.actuators = {
     red:{
         type:'pwm',
-        pin:27
+        pin:22
     },
     green:{
         type:'pwm',
@@ -13,7 +13,7 @@ exports.actuators = {
     },
     blue:{
         type:'pwm',
-        pin:22
+        pin:27
     },
     fan:{
         type:'pwm',

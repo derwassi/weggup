@@ -46,6 +46,7 @@ exports.play = function (soundFile, loop, volume) {
         sound.on(event,callback);
     };
     args.push('-slave');
+    args.push('-softvol');
     if(loop){
         args.push('-loop');
         args.push('0');
