@@ -36,6 +36,7 @@ var play = function(){
     if(!settings.list){
         settings.list = [];
     }
+
     settings.list.forEach(function(v){
 
 
@@ -57,6 +58,7 @@ var play = function(){
             },to));
         }
     });
+   setTimeout(soundControl.stop,duration);
 
 };
 
