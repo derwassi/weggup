@@ -3,6 +3,7 @@
  */
 
 var cronJob = require('cron').CronJob;
+var cronTime = require('cron').CronTime;
 var events = require('../services/eventbus');
 
 var emitter = events.emitter;
@@ -32,8 +33,6 @@ var ring = function(alarm,module){
 var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
     if(nowDate.getTime()-modifiedDate.getTime()>86400000) return false;//old alarm
     var modified = modifiedDate.getHours()*60+modifiedDate.getMinutes();
-    console.log('modified',modified)
-    console.log('wakeTimeMinutes',wakeTimeMinutes);
     //var now = nowDate.getHours()*60+nowDate.getMinutes();
     var alarmPoint = new Date();
     //alarmPoint.setTime(modified.getTime());
@@ -50,19 +49,26 @@ var needsToBeScheduledSingle=function(wakeTimeMinutes, modifiedDate, nowDate){
 
 };
 
+var convertTime = function(t){
+    var s = t.split(':');
+    return parseInt(s[0])*60+parseInt(s[1]);
+}
+
+var getWakeTime = function(alarm){
+
+    var minutes = convertTime(alarm.wakeTime);
+    var ambientDuration = parseInt(convertTime(alarm.ambientDuration)/60)
+    minutes-=ambientDuration;
+    return minutes
+}
+
+
 exports.schedule = function(alarms, module){
 
     alarms.forEach(function (alarm) {
         //Get daytime
         var cronString;
-        var time = alarm.wakeTime.split(':');
-        time.forEach(function (v, k) {
-            time[k] = parseInt(v);
-        });
-        var minutes = time[0]*60+time[1];
-        if(alarm.useAmbientSound || alarm.useLight){
-            minutes-=alarm.ambientDuration;
-        }
+        var minutes = getWakeTime(alarm);
         //alarm happens only once
         if (alarm.oneTime ) {
             var alarmPoint = needsToBeScheduledSingle(minutes,alarm.modified,new Date());
@@ -94,7 +100,8 @@ exports.schedule = function(alarms, module){
 /**
  * On movement detection, initialize next sunrise alarm
  */
-emitter.on('movement.primary',function(){
+
+var updateAlarm = function(){
     //TODO: get current light status (apply only when dark!)
     //TODO: get sleepcycle duration from settings (calculated continuosly)
     //TODO: when upcoming alarm is between next and overnext light sleeping phase adjust ring time accordingly
@@ -102,12 +109,26 @@ emitter.on('movement.primary',function(){
 
 
     var cycleLength = 3600*3*1000;
+    var now = Date.now();
+    console.log(ringers);
     ringers.forEach(function(v){
-        var t = v.job.cronTime.getTimeout();
-        if(t>cycleLength && t<2*cycleLength){
-
+        var t = v.job.cronTime.sendAt();
+        var minutes = getWakeTime(v.alarm);
+        var priorTime = v.alarm.allowedPriorTime;
+        console.log(t.getHours()*60+ t.getMinutes(),minutes);
+        if(t.getHours()*60+ t.getMinutes() == minutes ){
+            //alarm time has not been shifted yet
+            //console.log(t.getTime()-now,cycleLength,t.getTime()-(convertTime(priorTime)*60*1000)-now);
+            if(t.getTime()-now>cycleLength && t.getTime()-(convertTime(priorTime)*60*1000)-now<cycleLength){
+                var d = new Date();
+                d.setTime(now+cycleLength);
+            //console.log(new cronTime(d));
+                v.job.setTime(new cronTime(d));//TODO: repating alarms are not regarded currently.
+            }
         }
-    });
 
-});
+    });
+};
+//setTimeout(updateAlarm,1000);
+emitter.on('movement.primary',updateAlarm);
 
