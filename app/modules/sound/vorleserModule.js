@@ -78,6 +78,7 @@ var reduceVolume=function(){
 
         },settings.fadeOutTime);
         event.emitter.once('movement.primary',function(){
+            if(!player) return;
             //console.log('TEST');
 
             settings.position = positionAtStart + Date.now()-startTime;
